@@ -21,23 +21,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://assets.ego4d-data.org" />
 
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
 
-    <link rel="preload" as="image" href="assets/images/ego-4d-01.png" />
+    <link rel="preload" as="image" href="../assets/images/ego-4d-01.png" />
     <link
       rel="preload"
       as="image"
-      href="assets/images/map.jpg"
+      href="../assets/images/map.jpg"
       media="screen and (max-width: 1024px), (max-height:511px)"
     />
     <link
       rel="preload"
       as="image"
-      href="assets/images/map-Ego4D.png"
+      href="../assets/images/map-Ego4D.png"
       media="screen and (min-width: 1025px) and (min-height: 512px)"
     />
 
-    <link rel="icon" href="./assets/images/ego4d-icon.ico" />
+    <link rel="icon" href="../assets/images/ego4d-icon.ico" />
 
     <!-- Latest font-awesome css for icons -->
     <link
@@ -58,9 +58,9 @@
     <!-- Latest compiled JavaScript for BS3 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <script src="assets/scripts/form-submission.js"></script>
-    <script src="assets/scripts/ego_bounds.js"></script>
-    <script src="assets/scripts/map-tooltip.js"></script>
+    <script src="../assets/scripts/form-submission.js"></script>
+    <script src="../assets/scripts/ego_bounds.js"></script>
+    <script src="../assets/scripts/map-tooltip.js"></script>
 
     <script type="text/javascript">
       function openTabbedContent(element) {
@@ -148,7 +148,7 @@
 
           <div id="nav-logo">
             <a href="#">
-              <img id="logo" src="assets/images/ego-4d-01.png" alt="Logo" />
+              <img id="logo" src="../assets/images/ego-4d-01.png" alt="Logo" />
             </a>
           </div>
           <div id="nav-menu" class="collapse">
@@ -199,358 +199,6 @@
       </nav>
     </header>
 
-  <!--  <section id="benchmarks">
-      <div class="container">
-
-        <div class="content-row">
-          <div id="tabbed-content">
-            <ul class="nav nav-tabs">
-              <li id="episodic-memory" class="nav-link">
-                <a data-toggle="tab" href="#menu1">Episodic Memory</a>
-              </li>
-              <li id="hoi" class="nav-link active">
-                <a data-toggle="tab" href="#menu3">HOI</a>
-              </li>
-              <li id="av-diarization" class="nav-link">
-                <a data-toggle="tab" href="#menu4">AV Diarization</a>
-              </li>
-              <li id="social" class="nav-link">
-                <a data-toggle="tab" href="#menu5">Social</a>
-              </li>
-              <li id="forecasting" class="nav-link">
-                <a data-toggle="tab" href="#menu2">Forecasting</a>
-              </li>
-            </ul>
-
-            <div class="tab-content">
-              <div id="menu1" class="tab-pane fade">
-                <div class="row">
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/episodic.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Episodic Memory</h5>
-                      <p class="card-text">
-                        <em>Where is my X?</em><br />
-                        Egocentric video gives a recording of a wearer's daily
-                        life, and can be used augment human memory on demand.
-                        Such a system might be able to remind a user where they
-                        left their keys, if they added salt to a recipe, or
-                        recall events they attended.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/episodic.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Querying Memory</h5>
-                      <p class="card-text">
-                        There are three different tasks within this benchmark
-                        based on the input type used to query the memory: visual
-                        query (i.e. find the location given an image of keys),
-                        textual query ("how many cups of sugar did I add?"), and
-                        a moment query (find all instances of "When did I play
-                        with the dog").
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/episodic.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Construction of Queries</h5>
-                      <p class="card-text">
-                        For the language queries, a set of templates were
-                        designed which annotators used to write questions for
-                        the task. Examples include "what is the state of object
-                        X?" or "where is object X after event Y"? These were
-                        then re-written for variety.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/episodic.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Recalling Lives</h5>
-                      <p class="card__text">
-                        Given the broad nature of this benchmark, there isn't a
-                        subset of activities that were focused on within this
-                        task, leading to a realistic and challenging benchmark.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="menu3" class="tab-pane fade in active">
-                <div class="row">
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/h+o.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Hand + Object Interaction</h5>
-                      <p class="card-text">
-                        <em>How do objects change during interactions?</em
-                        ><br />
-                        Going beyond Action Recognition, this benchmark follows
-                        when, where and how an object is changed during its
-                        interaction - only possible through a first person
-                        Viewpoint.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/h+o.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Changes of State</h5>
-                      <p class="card-text">
-                        We capture annotations of objects, as they transform,
-                        temporally, spatially and semantically - an onion might
-                        be minced. These are represented by three different
-                        tasks in the benchmark: Point-of-no-return Temporal
-                        Localisation, Active Object Detection and State-Change
-                        Classification.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/h+o.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Pre/Post Conditions</h5>
-                      <p class="card-text">
-                        Each annotation has been labelled with prior states
-                        (i.e. the prior condition) and posterior states as well
-                        as the point of no return (PNR) in which the state
-                        change is triggered.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/h+o.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">World of Interactions</h5>
-                      <p class="card__text">
-                        The data for this challenge has been selected from
-                        activities with a high level of hand-object interactions
-                        such as knitting, carpentry, and baking.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="menu5" class="tab-pane fade">
-                <div class="row">
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/social.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Social Interactions</h5>
-                      <p class="card-text">
-                        <em>Who is attending to whom?</em><br />An egocentric
-                        video provides a unique lens for studying social
-                        interactions because it captures utterances and
-                        nonverbal cues from each participant’s unique view and
-                        enables embodied approaches to social understanding.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/social.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">More than Conversation</h5>
-                      <p class="card-text">
-                        Social extends the Audio-Visual Diaraization benchmark
-                        towards understanding the conversations of a social
-                        group over a longer period of time for specific tasks.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/social.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Talking and Listening</h5>
-                      <p class="card-text">
-                        This benchmark includes two different tasks focused on
-                        when a person is <em>Looking at Me</em> and when a
-                        person is <em>Talking to Me</em>.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/social.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Unique Interactions</h5>
-                      <p class="card__text">
-                        The data within the Social Interaction task was
-                        collected specifically for this task in mind with
-                        multi-user scenarios such as social deduction games,
-                        eating/drinking and playing basketball.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="menu4" class="tab-pane fade">
-                <div class="row">
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/a-vD.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Audio-Visual Diarization</h5>
-                      <p class="card-text">
-                        <em>Who said what, and when?</em><br />
-                        Conversations are egocentric in nature, and a
-                        human-in-the-loop AI requires skills such as localizing
-                        a speaker and transcribing speech content
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/a-vD.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Looking for Conversation</h5>
-                      <p class="card-text">
-                        This benchmark contains 2 different tasks focused on
-                        visual data: localizing and tracking of the speakers in
-                        the visual field of view. Note that identities are
-                        anonymized to match consortium guidelines.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/a-vD.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Hearing the Words</h5>
-                      <p class="card-text">
-                        The benchmark also includes 2 tasks for the audio
-                        modality: diaraization/temporal extent of the sentences
-                        spoken and the transcription of the conversation.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img src="assets/images/a-vD.png" alt="" title="" />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Much Ado About Talking</h5>
-                      <p class="card__text">
-                        With this task focused on conversations, scenarios were
-                        chosen which included multiple participants interacting
-                        together, such as eating, playing games or setting up
-                        tents.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="menu2" class="tab-pane fade">
-                <div class="row">
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img
-                        src="assets/images/forecasting.png"
-                        alt=""
-                        title=""
-                      />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Forecasting</h5>
-                      <p class="card-text">
-                        Predicting the future is a critical skill for AI systems
-                        to provide timely assistance for users. With a myriad of
-                        long-form, unscripted videos, Ego4D provides an
-                        interesting challenge for different forecasting tasks.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img
-                        src="assets/images/forecasting.png"
-                        alt=""
-                        title=""
-                      />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Where Will I Move?</h5>
-                      <p class="card-text">
-                        Two tasks consider the future motion of the user with
-                        hands and feet. Models should predict where the camera
-                        wearer will go within the scene and the future location
-                        of wearer's hands.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img
-                        src="assets/images/forecasting.png"
-                        alt=""
-                        title=""
-                      />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">What Will Happen Next?</h5>
-                      <p class="card-text">
-                        Two tasks consider short and long term future
-                        anticipation. Algorithms should be able to predict the
-                        next object interaction that will take place and a
-                        countdown towards it taking place as well as the long
-                        term - what are the next possible sequence of actions?
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 tab-wrap">
-                    <div class="tab-image nav-tab-image">
-                      <img
-                        src="assets/images/forecasting.png"
-                        alt=""
-                        title=""
-                      />
-                    </div>
-                    <div class="tab-card-content">
-                      <h5 class="card-title">Data for Prophets</h5>
-                      <p class="card__text">
-                        The data for this challenge has been selected from a
-                        diverse set of activities containing many human-object
-                        interactions and movements such as brick making, cooking
-                        or carpentry.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>-->
-
     <section id="challenges">
       <div class="container">
                   <div class="row">
@@ -575,7 +223,7 @@
               <div class="card-content">
                 <div class="card-image">
                   <img
-                    src="assets/images/episodic.png"
+                    src="../assets/images/episodic.png"
                     alt="Placeholder image 5"
                   />
                 </div>
@@ -594,7 +242,7 @@
             >
               <div class="card-content">
                 <div class="card-image">
-                  <img src="assets/images/h+o.png" alt="Placeholder image 3" />
+                  <img src="../assets/images/h+o.png" alt="Placeholder image 3" />
                 </div>
                 <div class="card-info">
                   <h3 class="card-title">Hand-Object Interactions</h3>
@@ -611,7 +259,7 @@
             >
               <div class="card-content">
                 <div class="card-image">
-                  <img src="assets/images/a-vD.png" alt="Placeholder image 6" />
+                  <img src="../assets/images/a-vD.png" alt="Placeholder image 6" />
                 </div>
                 <div class="card-info">
                   <h3 class="card-title">AV Diarization</h3>
@@ -630,7 +278,7 @@
               <div class="card-content">
                 <div class="card-image">
                   <img
-                    src="assets/images/social.png"
+                    src="../assets/images/social.png"
                     alt="Placeholder image 7"
                   />
                 </div>
@@ -650,7 +298,7 @@
               <div class="card-content">
                 <div class="card-image">
                   <img
-                    src="assets/images/forecasting.png"
+                    src="../assets/images/forecasting.png"
                     alt="Placeholder image 4"
                   />
                 </div>

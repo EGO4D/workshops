@@ -367,6 +367,10 @@ a.btn-translucent {
   line-height: 1.05882353;
 }
 
+.sub-title {
+  margin-top: 33px;
+}
+
 .small-title {
   font-size: 1.8rem;
   font-weight: bold;

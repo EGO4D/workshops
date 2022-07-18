@@ -45,6 +45,7 @@ header {
 .show-1025x512 {
   display: none !important;
 }
+
 .hidden-1025x512 {
   display: block !important;
 }
@@ -52,6 +53,7 @@ header {
 .voffset-16 {
   margin-top: 16px;
 }
+
 .voffset-32 {
   margin-top: 32px;
 }
@@ -73,7 +75,7 @@ header {
   margin-bottom: 0;
 }
 
-#nav-bar > .container-fluid {
+#nav-bar>.container-fluid {
   align-items: center;
   padding: 0 !important;
 }
@@ -108,11 +110,13 @@ header {
   top: 0;
   transition: all 0.2s;
 }
+
 .hamburger span:nth-child(2),
 .hamburger span:nth-child(3) {
   top: 8px;
   transition: all 0.15s;
 }
+
 .hamburger span:nth-child(4) {
   top: 16px;
   transition: all 0.2s;
@@ -232,8 +236,7 @@ a.btn-translucent {
   width: 100%;
   padding-top: 8rem;
   padding-bottom: 8rem;
-  background: url("/assets/images/tourism.jpg") 50% 50% / cover no-repeat
-    border-box;
+  background: url("/assets/images/tourism.jpg") 50% 50% / cover no-repeat border-box;
   overflow: hidden;
   color: white;
 }
@@ -511,6 +514,7 @@ a.btn-translucent {
   position: relative;
   background-color: transparent;
 }
+
 /* https://css-tricks.com/books/fundamental-css-tactics/infinite-scrolling-background-image/ */
 #parallax-image.paused::before {
   content: "";
@@ -533,6 +537,7 @@ a.btn-translucent {
   -moz-animation-play-state: paused;
   -o-animation-play-state: paused;
 }
+
 #parallax-image::before {
   content: "";
   height: 100vh;
@@ -555,6 +560,7 @@ a.btn-translucent {
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   100% {
     transform: translate3d(calc(100vh * -1.953125), 0, 0);
   }
@@ -584,6 +590,7 @@ a.btn-translucent {
   object-fit: contain;
   opacity: 0;
 }
+
 #parallax-video.fade-in {
   opacity: 1;
   transition: opacity 0.25s 0.5s;
@@ -591,24 +598,22 @@ a.btn-translucent {
   -moz-transition: opacity 0.25s 0.5s;
 }
 
-#parallax-image > .container-fluid {
+#parallax-image>.container-fluid {
   position: absolute;
   left: 0;
   right: 0;
   top: 65vh;
   bottom: 0;
   font-size: min(2em, max(0.75em, 2vmin));
-  background: linear-gradient(
-      0deg,
+  background: linear-gradient(0deg,
       rgba(255, 255, 255, 0.95) 75%,
-      rgba(255, 255, 255, 0) 100%
-    )
-    border-box;
+      rgba(255, 255, 255, 0) 100%) border-box;
 }
 
 #parallax-image img {
   height: 8vh;
 }
+
 .parallax-description {
   height: 100%;
   display: flex;
@@ -616,29 +621,35 @@ a.btn-translucent {
   justify-content: space-evenly;
   align-items: flex-start;
 }
-.parallax-description > * {
+
+.parallax-description>* {
   flex: 0 1 auto;
 }
-.parallax-description > p {
+
+.parallax-description>p {
   margin-bottom: 8px;
 }
-.parallax-description > .row {
+
+.parallax-description>.row {
   flex: 0 0 auto;
 }
+
 #parallax-image .btn-primary {
   background-color: #7030a0;
   color: white;
 }
+
 #parallax-image .btn {
   font-size: min(1.5em, max(0.75em, 2vmin));
   padding: 0.75em 0.75em;
   margin: 0.5em -4px 0 16px;
 }
+
 @media screen and (min-width: 1025px) and (min-height: 512px) {
   #parallax-image {
-    background: url("../images/map-Ego4D.png") 50% 50% / cover no-repeat
-      border-box fixed;
+    background: url("../images/map-Ego4D.png") 50% 50% / cover no-repeat border-box fixed;
   }
+
   #parallax-image::before {
     display: none !important;
   }
@@ -668,11 +679,11 @@ a.btn-translucent {
   text-align: center;
 }
 
-.nav-tabs > li.active > a {
+.nav-tabs>li.active>a {
   border: none !important;
 }
 
-.nav-tabs > li a:hover {
+.nav-tabs>li a:hover {
   background-color: transparent !important;
   border: none !important;
 }
@@ -813,7 +824,8 @@ a.btn-translucent {
   align-items: center;
   margin-bottom: 12px;
 }
-.consortium_logos > div {
+
+.consortium_logos>div {
   flex: 1 1 30%;
   margin: 24px 0;
   max-width: 300px;
@@ -823,7 +835,7 @@ a.btn-translucent {
   align-items: center;
 }
 
-.consortium_logos > div > img {
+.consortium_logos>div>img {
   max-height: 200px;
   min-height: 200px;
   max-width: 100%;
@@ -848,18 +860,23 @@ a.btn-translucent {
   .md-flip-order {
     flex-direction: column-reverse;
   }
+
   #consortium {
     text-align: center;
   }
+
   #carousel-bg {
     display: none;
   }
+
   #left-control {
     left: calc(50% - 64px);
   }
+
   #right-control {
     right: calc(50% - 64px);
   }
+
   .slide-image-wrap {
     padding-top: 0px;
   }
@@ -870,6 +887,7 @@ a.btn-translucent {
     margin-left: 20px;
   }
 }
+
 .timeline-element {
   margin-top: 20px;
   position: relative;
@@ -982,6 +1000,7 @@ a.btn-translucent {
 #submit-btn {
   margin-left: -5px;
 }
+
 #submit-btn:hover {
   color: white;
 }
@@ -1184,6 +1203,7 @@ footer {
     padding-left: 50px !important;
     padding-right: 50px !important;
   }
+
   .slide-content {
     margin-left: 8.3%;
   }
@@ -1265,18 +1285,27 @@ footer {
 }
 
 /* Header Notice Styling */
-.notice{
+.notice {
   width: 100%;
   text-align: center;
-  background:#efefef;
+  background: #efefef;
   padding: 5px 0;
   /* color: white; */
 }
 
 /* CVPR 2022 Winners Styling */
+
+#winners .container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
 .winners-table {
   margin-bottom: 50px;
   width: 100%;
+  max-width: 1024px;
 }
 
 .winners-team-name {
@@ -1285,7 +1314,9 @@ footer {
   color: #7030a0;
 }
 
-.winners-table, .winners-table th, .winners-table td {
+.winners-table,
+.winners-table th,
+.winners-table td {
   padding: 10px;
   border: solid 1px;
 }

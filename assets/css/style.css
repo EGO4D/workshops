@@ -1263,3 +1263,21 @@ footer {
     line-height: 1.14;
   }
 }
+
+
+/* CVPR 2022 Winners Styling */
+.winners-table {
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.winners-team-name {
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #7030a0;
+}
+
+.winners-table, .winners-table th, .winners-table td {
+  padding: 10px;
+  border: solid 1px;
+}

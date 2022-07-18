@@ -1264,6 +1264,14 @@ footer {
   }
 }
 
+/* Header Notice Styling */
+.notice{
+  width: 100%;
+  text-align: center;
+  background:#efefef;
+  padding: 5px 0;
+  /* color: white; */
+}
 
 /* CVPR 2022 Winners Styling */
 .winners-table {

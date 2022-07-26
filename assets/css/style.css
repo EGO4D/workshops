@@ -1320,3 +1320,19 @@ footer {
   padding: 10px;
   border: solid 1px;
 }
+
+/* ECCV 2022 Important Dates Styling */
+
+.dates-table{
+  margin-bottom: 50px;
+  width: 50%;
+  max-width: 1024px;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.dates-table,
+.dates-table th,
+.dates-table td {
+  padding: 5px;
+}

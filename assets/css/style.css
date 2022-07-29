@@ -1336,3 +1336,20 @@ footer {
 .dates-table td {
   padding: 5px;
 }
+
+/* ECCV 2022 CFP Bullet list Styling */
+
+ul.cfp{
+  font-size: min(1.8rem, max(1em, 3vmin));
+  list-style-type: circle;
+  align-items: center;
+  list-style-position: inside;
+}
+
+/* Paragraph with standard font size and justified text */
+
+p.justified{
+  font-size: min(1.8rem, max(1em, 3vmin));
+  text-align: justify;
+  text-justify: inter-word;
+}

@@ -1353,3 +1353,19 @@ p.justified{
   text-align: justify;
   text-justify: inter-word;
 }
+
+/* ECCV 2022 Program Styling */
+
+.program-table{
+  margin-bottom: 50px;
+  width: 100%;
+  max-width: 1024px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.program-table,
+.program-table th,
+.program-table td {
+  padding: 5px;
+}

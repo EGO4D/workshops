@@ -1360,8 +1360,8 @@ p.justified{
   margin-bottom: 50px;
   width: 100%;
   max-width: 1024px;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .program-table,

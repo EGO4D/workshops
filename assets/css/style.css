@@ -1370,3 +1370,9 @@ p.justified{
   padding: 5px;
   border-style: dotted;
 }
+
+/* Make images round */
+
+.image img{
+  border-radius: 50%;;
+}

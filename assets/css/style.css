@@ -1368,4 +1368,5 @@ p.justified{
 .program-table th,
 .program-table td {
   padding: 5px;
+  border-style: dotted;
 }

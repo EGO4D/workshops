@@ -414,23 +414,63 @@
             <div class="consortium_logos">
               <div class="image">
                 <img src="../assets/images/Zelnik_Lihi.jpg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://lihi.net.technion.ac.il/">Lihi Zelnik-Manor</a><p class="slide-text">ECE, Technion</p>
+                  title="" /><br /><a class="slide-text" href="https://lihi.net.technion.ac.il/">Lihi Zelnik-Manor</a>
+                  <p class="slide-text">ECE, Technion</p>
+                  <button type="button" class="btn collapsible">Abstract</button>
+                  <div class="content">
+                    <p>Imagine being able to touch virtual objects, interact physically with computer games, or feel 
+                      items that are located elsewhere on the globe. The breadth of applications of such haptic 
+                      technology would be diverse and broad. Interestingly, while excellent visual and auditory 
+                      feedback devices exist, cutaneous feedback devices are in infancy stages. In this talk I will 
+                      present a brief introduction to the world of haptic feedback devices and the challenges it poses. 
+                      Then I will present HUGO, a device designed in a human-centered process, triggering the 
+                      mechanoreceptors in our skin thus enabling people to experience the touch of digitized surfaces 
+                      “in-the-wild". This talk is likely to leave us with many open questions that require research to 
+                      answer.</p>
+                  </div>
               </div>
               <div class="image">
                 <img src="../assets/images/Michal_Irani.jpg" alt=""
-                  title="" /><br /><a class="slide-text" href="http://www.weizmann.ac.il/math/irani/">Michal Irani</a><p class="slide-text">Weizmann Institute of Science</p>
+                  title="" /><br /><a class="slide-text" href="http://www.weizmann.ac.il/math/irani/">Michal Irani</a>
+                  <p class="slide-text">Weizmann Institute of Science</p>
+                  <button type="button" class="btn collapsible">Abstract</button>
+                  <div class="content">
+                    <p>Can we reconstruct natural images & videos that a person 
+                      saw, directly from his/her fMRI brain recordings?  This is
+                       a particularly difficult problem, given the very few 
+                       “paired” training examples available (images/videos with 
+                       their corresponding fMRI recordings). In this talk I will
+                        show how such image/video reconstruction can be 
+                        performed, despite the few training examples, by 
+                        exploiting Self-Supervised training on many “unpaired” 
+                        data – i.e., images & videos without any fMRI recordings. 
+                      I will further show how large-scale image classification 
+                      (to more than 1000 classes!) can be performed on sparse fMRI data.</p>
+                  </div>
               </div>
               <div class="image">
                 <img src="../assets/images/Abhinav_Gupta.jpg" alt=""
-                  title="" /><br /><a class="slide-text" href="http://www.cs.cmu.edu/~abhinavg/">Abhinav Gupta</a><p class="slide-text">Carnegie Mellon University</p>
+                  title="" /><br /><a class="slide-text" href="http://www.cs.cmu.edu/~abhinavg/">Abhinav Gupta</a>
+                  <p class="slide-text">Carnegie Mellon University</p>
               </div>
               <div class="image">
                 <img src="../assets/images/Christoph_Feichtenhofer.jpg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://feichtenhofer.github.io/">Christoph Feichtenhofer</a><p class="slide-text">Meta AI</p>
+                  title="" /><br /><a class="slide-text" href="https://feichtenhofer.github.io/">Christoph Feichtenhofer</a>
+                  <p class="slide-text">Meta AI</p>
+                  <button type="button" class="btn collapsible">Abstract</button>
+                  <div class="content">
+                    <p>"This talk discusses recent research for self-supervised learning from video. I first present a conceptually simple extension of Masked Autoencoders (MAE) to spatiotemporal representation learning from videos. We randomly mask out spacetime patches in videos and learn an autoencoder to reconstruct them in pixels. A high masking ratio leads to a large speedup, e.g., > 4x in wall-clock time or even more.
+                      Then I will present Masked Feature Prediction (MaskFeat) for self-supervised pre-training of video models. Our approach first randomly masks out a portion of the input sequence and then predicts the feature of the masked regions. We study five different types of features and find Histograms of Oriented Gradients, a hand-crafted feature descriptor, works particularly well in terms of both performance and efficiency.  
+                      Finally, I will talk about a simple extension of MAE to self-supervised representation learning from audio spectrograms. 
+                      Following the Transformer encoder-decoder design in MAE, our Audio-MAE first encodes audio spectrogram patches with a high masking ratio, feeding only the non-masked tokens through encoder layers.
+                      We observe that masked pre-training can outperform supervised pre-training by large margins. We further report encouraging results of training on real-world, uncurated Instagram data. Our studies suggests that the general framework of masked autoencoding (BERT, MAE, etc.) can be a unified methodology for representation learning with minimal domain knowledge. "</p>
+                  </div>
               </div>
               <div class="image">
                 <img src="../assets/images/Joao_Carreira.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://scholar.google.com/citations?user=IUZ-7_cAAAAJ&hl=en">João Carreira</a><p class="slide-text">Google DeepMind</p>
+                  title="" /><br /><a class="slide-text" href="https://scholar.google.com/citations?user=IUZ-7_cAAAAJ&hl=en">João Carreira</a>
+                  <p class="slide-text">Google DeepMind</p>
+                  </div>
               </div>
             </div>
           </div>
@@ -845,6 +885,24 @@
     </section>
   </body>
   <script>
+
+    // Add code snippet for abstract toggle (https://www.w3schools.com/howto/howto_js_collapsible.asp)
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        console.log(i);
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+
     // Setup nav-item on click to toggle the hamburger
     const navbar = document.getElementById("nav-bar");
     const hamburger_button = navbar.querySelector("button.navbar-toggler");

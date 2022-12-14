@@ -1,1002 +1,1730 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="A large-scale first-person video dataset, supporting research in multi-modal machine perception for daily life activity"
-    />
-    <meta
-      name="keywords"
-      content="video dataset, machine perception, machine-learning, research"
-    />
 
-    <title>Egocentric 4D Perception (EGO4D)</title>
-    <link rel="preconnect" href="https://use.fontawesome.com" />
-    <link rel="preconnect" href="https://maxcdn.bootstrapcdn.com" />
-    <link rel="preconnect" href="https://ajax.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link rel="preconnect" href="https://assets.ego4d-data.org" />
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="A large-scale first-person video dataset, supporting research in multi-modal machine perception for daily life activity" />
+  <meta name="keywords" content="video dataset, machine perception, machine-learning, research" />
 
-    <link rel="stylesheet" href="../assets/css/style.css" />
+  <title>Egocentric 4D Perception (EGO4D)</title>
+  <link rel="preconnect" href="https://use.fontawesome.com" />
+  <link rel="preconnect" href="https://maxcdn.bootstrapcdn.com" />
+  <link rel="preconnect" href="https://ajax.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="preconnect" href="https://assets.ego4d-data.org" />
 
-    <link rel="preload" as="image" href="../assets/images/ego-4d-01.png" />
-    <link
-      rel="preload"
-      as="image"
-      href="../assets/images/map.jpg"
-      media="screen and (max-width: 1024px), (max-height:511px)"
-    />
+  <link rel="stylesheet" href="../assets/css/style.css" />
 
-    <link rel="icon" href="../assets/images/ego4d-icon.ico" />
+  <link rel="preload" as="image" href="../assets/images/ego-4d-01.png" />
+  <link rel="preload" as="image" href="../assets/images/map.jpg"
+    media="screen and (max-width: 1024px), (max-height:511px)" />
 
-    <!-- Latest font-awesome css for icons -->
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
-      crossorigin="anonymous"
-    />
+  <link rel="icon" href="../assets/images/ego4d-icon.ico" />
 
-    <!-- BS3 compiled and minified CSS -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    />
+  <!-- Latest font-awesome css for icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Latest compiled JavaScript for BS3 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- BS3 compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 
-    <script src="../assets/scripts/form-submission.js"></script>
-    <script src="../assets/scripts/ego_bounds.js"></script>
-    <script src="../assets/scripts/map-tooltip.js"></script>
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript for BS3 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
-      function openTabbedContent(element) {
-        var whereTo = $(element).attr("goto"),
-          tabs = $("#benchmarks li"),
-          links = tabs.find("a[href='#" + whereTo + "']");
+  <script src="../assets/scripts/form-submission.js"></script>
+  <script src="../assets/scripts/ego_bounds.js"></script>
+  <script src="../assets/scripts/map-tooltip.js"></script>
 
-        links[0].click();
-      }
-      // Hide the address bar
-      // https://24ways.org/2011/raising-the-bar-on-mobile/
-      // https://github.com/scottjehl/Hide-Address-Bar
-      /*
-       * Normalized hide address bar for iOS & Android
-       * (c) Scott Jehl, scottjehl.com
-       * MIT License
-       */
-      (function (win) {
-        var doc = win.document;
+  <script type="text/javascript">
+    function openTabbedContent(element) {
+      var whereTo = $(element).attr("goto"),
+        tabs = $("#benchmarks li"),
+        links = tabs.find("a[href='#" + whereTo + "']");
 
-        // If there's a hash, or addEventListener is undefined, stop here
-        if (
-          !win.navigator.standalone &&
-          !location.hash &&
-          win.addEventListener
-        ) {
-          //scroll to 1
-          win.scrollTo(0, 1);
-          var scrollTop = 1,
-            getScrollTop = function () {
-              return (
-                win.pageYOffset ||
-                (doc.compatMode === "CSS1Compat" &&
-                  doc.documentElement.scrollTop) ||
-                doc.body.scrollTop ||
-                0
-              );
-            },
-            //reset to 0 on bodyready, if needed
-            bodycheck = setInterval(function () {
-              if (doc.body) {
-                clearInterval(bodycheck);
-                scrollTop = getScrollTop();
+      links[0].click();
+    }
+    // Hide the address bar
+    // https://24ways.org/2011/raising-the-bar-on-mobile/
+    // https://github.com/scottjehl/Hide-Address-Bar
+    /*
+     * Normalized hide address bar for iOS & Android
+     * (c) Scott Jehl, scottjehl.com
+     * MIT License
+     */
+    (function (win) {
+      var doc = win.document;
+
+      // If there's a hash, or addEventListener is undefined, stop here
+      if (
+        !win.navigator.standalone &&
+        !location.hash &&
+        win.addEventListener
+      ) {
+        //scroll to 1
+        win.scrollTo(0, 1);
+        var scrollTop = 1,
+          getScrollTop = function () {
+            return (
+              win.pageYOffset ||
+              (doc.compatMode === "CSS1Compat" &&
+                doc.documentElement.scrollTop) ||
+              doc.body.scrollTop ||
+              0
+            );
+          },
+          //reset to 0 on bodyready, if needed
+          bodycheck = setInterval(function () {
+            if (doc.body) {
+              clearInterval(bodycheck);
+              scrollTop = getScrollTop();
+              win.scrollTo(0, scrollTop === 1 ? 0 : 1);
+            }
+          }, 15);
+
+        win.addEventListener(
+          "load",
+          function () {
+            setTimeout(function () {
+              //at load, if user hasn't scrolled more than 20 or so...
+              if (getScrollTop() < 20) {
+                //reset to hide addr bar at onload
                 win.scrollTo(0, scrollTop === 1 ? 0 : 1);
               }
-            }, 15);
+            }, 0);
+          },
+          false
+        );
+      }
+    })(this);
+  </script>
+</head>
 
-          win.addEventListener(
-            "load",
-            function () {
-              setTimeout(function () {
-                //at load, if user hasn't scrolled more than 20 or so...
-                if (getScrollTop() < 20) {
-                  //reset to hide addr bar at onload
-                  win.scrollTo(0, scrollTop === 1 ? 0 : 1);
-                }
-              }, 0);
-            },
-            false
-          );
-        }
-      })(this);
-    </script>
-  </head>
-  <body>
-    <header>
-      <div class="notice">Looking for the <a href="../cvpr22">CVPR 2022 Workshop Page</a>?</div>
-      <nav id="nav-bar" class="navbar nav-dropdown navbar-expand-lg">
-        <div id="nav-links" class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#nav-menu"
-            aria-controls="nav-menu"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <div class="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </button>
+<body>
+  <header>
+    <div class="notice">Looking for the <a href="../cvpr22">CVPR 2022 Workshop Page</a>?</div>
+    <nav id="nav-bar" class="navbar nav-dropdown navbar-expand-lg">
+      <div id="nav-links" class="container-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-menu"
+          aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
 
-          <div id="nav-logo">
-            <a href="#">
-              <img id="logo" src="../assets/images/ego-4d-01.png" alt="Logo" />
+        <div id="nav-logo">
+          <a href="#">
+            <img id="logo" src="../assets/images/ego-4d-01.png" alt="Logo" />
+          </a>
+        </div>
+        <div id="nav-menu" class="collapse">
+          <ul id="nav-menu-list" data-app-modern-menu="true">
+            <li class="nav-item">
+              <a href="#challenges" class="nav-link">Challenges</a>
+            </li>
+            <li class="nav-item">
+              <a href="#cfp" class="nav-link">Call for Abstracts</a>
+            </li>
+            <li class="nav-item">
+              <a href="#impdates" class="nav-link">Important Dates</a>
+            </li>
+            <li class="nav-item">
+              <a href="#invited" class="nav-link">Invited Speakers</a>
+            </li>
+            <li class="nav-item">
+              <a href="#program" class="nav-link">Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a href="#instructions" class="nav-link">Instructions</a>
+            </li>
+            <li class="nav-item">
+              <a href="#organisers" class="nav-link">Organisers</a>
+            </li>
+          </ul>
+          <div id="social-links">
+            <a href="https://github.com/EGO4D" target="_blank" rel="noopener noreferrer" class="icon-wrap">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://drive.google.com/file/d/1oknfQIH9w1rXy6I1j5eUE6Cqh96UwZ4L/view?usp=sharing" target="_blank"
+              rel="noopener noreferrer" class="icon-wrap">
+              <i class="fab fa-youtube"></i>
+            </a>
+
+            <a href="mailto:info@ego4d-data.org" target="_blank" rel="noopener noreferrer" class="icon-wrap">
+              <i class="fab fas fa-envelope"></i>
             </a>
           </div>
-          <div id="nav-menu" class="collapse">
-            <ul id="nav-menu-list" data-app-modern-menu="true">
-              <li class="nav-item">
-                <a href="#challenges" class="nav-link">Challenges</a>
-              </li>
-              <li class="nav-item">
-                <a href="#cfp" class="nav-link">Call for Abstracts</a>
-              </li>
-              <li class="nav-item">
-                <a href="#impdates" class="nav-link">Important Dates</a>
-              </li>
-              <li class="nav-item">
-                <a href="#invited" class="nav-link">Invited Speakers</a>
-              </li>
-              <li class="nav-item">
-                <a href="#program" class="nav-link">Schedule</a>
-              </li>
-              <li class="nav-item">
-                <a href="#instructions" class="nav-link">Instructions</a>
-              </li>
-              <li class="nav-item">
-                <a href="#organisers" class="nav-link">Organisers</a>
-              </li>
-            </ul>
-            <div id="social-links">
-              <a
-                href="https://github.com/EGO4D"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="icon-wrap"
-              >
-                <i class="fab fa-github"></i>
-              </a>
-              <a
-                href="https://drive.google.com/file/d/1oknfQIH9w1rXy6I1j5eUE6Cqh96UwZ4L/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="icon-wrap"
-              >
-                <i class="fab fa-youtube"></i>
-              </a>
-
-              <a
-                href="mailto:info@ego4d-data.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="icon-wrap"
-              >
-                <i class="fab fas fa-envelope"></i>
-              </a>
-            </div>
-          </div>
-          <div id="discover"></div>
         </div>
-      </nav>
-    </header>
+        <div id="discover"></div>
+      </div>
+    </nav>
+  </header>
 
-    <section id="challenges">
-      <div class="container">
-        <div class="row">
-          <div id="tab-header" class="align-center">
-            <h3 class="title no-margin">2nd International Ego4D Workshop @ ECCV 2022</h3>
-            <p class="sub-title slide-text">For details about the Ego4D project and data, <a href="https://ego4d-data.org/">please refer to the dataset's webpage</a></p>
-          </div>
-        </div>
-        <div class="row card-row">
-          <div class="col-xs-12 col-sm-6 col-lg-3 title">
-            <h2 class="title">Challenges</h2>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
-            <a
-              href="https://ego4d-data.org/docs/challenge/#episodic-memory"
-              class="block"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="card-content">
-                <div class="card-image">
-                  <img
-                    src="../assets/images/episodic.png"
-                    alt="Placeholder image 5"
-                  />
-                </div>
-                <div class="card-info">
-                  <h3 class="card-title">Episodic Memory</h3>
-                </div>
-              </div></a
-            >
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
-            <a
-              href="https://ego4d-data.org/docs/challenge/#hands-and-objects"
-              class="block"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="card-content">
-                <div class="card-image">
-                  <img src="../assets/images/h+o.png" alt="Placeholder image 3" />
-                </div>
-                <div class="card-info">
-                  <h3 class="card-title">Hand-Object Interactions</h3>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
-            <a
-              href="https://ego4d-data.org/docs/challenge/#audio-visual-diarization--social"
-              class="block"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="card-content">
-                <div class="card-image">
-                  <img src="../assets/images/a-vD.png" alt="Placeholder image 6" />
-                </div>
-                <div class="card-info">
-                  <h3 class="card-title">AV Diarization</h3>
-                </div>
-              </div></a
-            >
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 card-block empty-block"></div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
-            <a
-              href="https://ego4d-data.org/docs/challenge/#audio-visual-diarization--social"
-              class="block"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="card-content">
-                <div class="card-image">
-                  <img
-                    src="../assets/images/social.png"
-                    alt="Placeholder image 7"
-                  />
-                </div>
-                <div class="card-info">
-                  <h3 class="card-title">Social</h3>
-                </div>
-              </div></a
-            >
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
-            <a
-              href="https://ego4d-data.org/docs/challenge/#forecasting"
-              class="block"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="card-content">
-                <div class="card-image">
-                  <img
-                    src="../assets/images/forecasting.png"
-                    alt="Placeholder image 4"
-                  />
-                </div>
-                <div class="card-info">
-                  <h3 class="card-title">Forecasting</h3>
-                </div>
-              </div></a
-            >
-          </div>
+  <section id="challenges">
+    <div class="container">
+      <div class="row">
+        <div id="tab-header" class="align-center">
+          <h3 class="title no-margin">2nd International Ego4D Workshop @ ECCV 2022</h3>
+          <p class="sub-title slide-text">For details about the Ego4D project and data, <a
+              href="https://ego4d-data.org/">please refer to the dataset's webpage</a></p>
         </div>
       </div>
-    </section>
-
-    <section id="cfp">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 align-center">
-            <h3 class="title large-text">Call for Extended Abstracts</h3>
-          </div>
+      <div class="row card-row">
+        <div class="col-xs-12 col-sm-6 col-lg-3 title">
+          <h2 class="title">Challenges</h2>
         </div>
-        <p class="justified">
-          You are invited to submit extended abstracts to the second
-           edition of the International Workshop in Ego4D which will be held
-           alongside <a href="https://eccv2022.ecva.net/"">ECCV2022</a> in Tel
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#episodic-memory" class="block" target="_blank"
+            rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/episodic.png" alt="Placeholder image 5" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">Episodic Memory</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#hands-and-objects" class="block" target="_blank"
+            rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/h+o.png" alt="Placeholder image 3" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">Hand-Object Interactions</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#audio-visual-diarization--social" class="block"
+            target="_blank" rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/a-vD.png" alt="Placeholder image 6" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">AV Diarization</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block empty-block"></div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#audio-visual-diarization--social" class="block"
+            target="_blank" rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/social.png" alt="Placeholder image 7" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">Social</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#forecasting" class="block" target="_blank"
+            rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/forecasting.png" alt="Placeholder image 4" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">Forecasting</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cfp">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">Call for Extended Abstracts</h3>
+        </div>
+      </div>
+      <p class="justified">
+        You are invited to submit extended abstracts to the second
+        edition of the International Workshop in Ego4D which will be held
+        alongside <a href="https://eccv2022.ecva.net/"">ECCV2022</a> in Tel
            Aviv.
         </p>
-        <p class="justified">
+        <p class=" justified">
           These abstracts represent existing or ongoing work and will not be
-           published as part of any proceedings. We welcome all works that focus
-           within the Egocentric Domain, it is not necessary to use the Ego4D
-           dataset within your work. We expect a submission may contain one or
-           more of the following topics (this is a non-exhaustive list):
-        </p>
-        <ul class="cfp">
-          <li>Video Understanding for Egocentric Videos</li>
-          <li>Egocentric and Exocentric domain adaptation/transfer</li>
-          <li>Egocentric video Summarization</li>
-          <li>Egocentric Social Interaction and human behavior understanding</li>
-          <li>Computational eye tracking and gaze estimation from head mounted devices</li>
-          <li>Interactive Augmented and Virtual Reality for Egocentric Perception</li>
-          <li>Augmented Human performance for egocentric</li>
-          <li>Privacy and ethical concerns with wearable sensors and egocentric vision</li>
-          <li>Egocentric vision for social good.</li>
-        </ul>
-        <h3 class="small-title">Format</h3>
-        <p class="justified">
-          The length of the extended abstracts is 2-4 pages, including figures
-           and tables, but not references. We invite submissions of ongoing or
-           already published work, as well as reports on demonstrations and
-           prototypes. The 2<sup>nd</sup> international Ego4D workshop gives opportunities
-           for authors to present their work to the egocentric community to
-           provoke discussion and feedback. Accepted work will be presented as
-           either an oral presentation (either virtual or in-person) or as a
-           poster presentation. The review will be single-blind, so there is no
-           need to anonymize your work, but otherwise will follow the format of
-           the ECCV submissions, information can be found
-           <a href="https://eccv2022.ecva.net/submission/call-for-papers/">here</a>.
-           Accepted abstracts will not be published as part of a proceedings, so
-           can be uploaded to ArXiv etc. and the links will be provided on the
-           workshop’s webpage.
+          published as part of any proceedings. We welcome all works that focus
+          within the Egocentric Domain, it is not necessary to use the Ego4D
+          dataset within your work. We expect a submission may contain one or
+          more of the following topics (this is a non-exhaustive list):
+      </p>
+      <ul class="cfp">
+        <li>Video Understanding for Egocentric Videos</li>
+        <li>Egocentric and Exocentric domain adaptation/transfer</li>
+        <li>Egocentric video Summarization</li>
+        <li>Egocentric Social Interaction and human behavior understanding</li>
+        <li>Computational eye tracking and gaze estimation from head mounted devices</li>
+        <li>Interactive Augmented and Virtual Reality for Egocentric Perception</li>
+        <li>Augmented Human performance for egocentric</li>
+        <li>Privacy and ethical concerns with wearable sensors and egocentric vision</li>
+        <li>Egocentric vision for social good.</li>
+      </ul>
+      <h3 class="small-title">Format</h3>
+      <p class="justified">
+        The length of the extended abstracts is 2-4 pages, including figures
+        and tables, but not references. We invite submissions of ongoing or
+        already published work, as well as reports on demonstrations and
+        prototypes. The 2<sup>nd</sup> international Ego4D workshop gives opportunities
+        for authors to present their work to the egocentric community to
+        provoke discussion and feedback. Accepted work will be presented as
+        either an oral presentation (either virtual or in-person) or as a
+        poster presentation. The review will be single-blind, so there is no
+        need to anonymize your work, but otherwise will follow the format of
+        the ECCV submissions, information can be found
+        <a href="https://eccv2022.ecva.net/submission/call-for-papers/">here</a>.
+        Accepted abstracts will not be published as part of a proceedings, so
+        can be uploaded to ArXiv etc. and the links will be provided on the
+        workshop’s webpage.
 
-           The submission will be managed with the Ego4D@ECCV2022 
-           <a href="https://cmt3.research.microsoft.com/EGO4D2022/">CMT website</a>.
-        </p>
-      </div>
-    </section>
+        The submission will be managed with the Ego4D@ECCV2022
+        <a href="https://cmt3.research.microsoft.com/EGO4D2022/">CMT website</a>.
+      </p>
+    </div>
+  </section>
 
 
-    <section id="impdates">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 align-center">
-            <h3 class="title large-text">Important Dates</h3>
-          </div>
+  <section id="impdates">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">Important Dates</h3>
         </div>
-        <table class="dates-table">
-          <tr>
-            <td class='small-title'>Challenge Deadline</td>
-            <td>18 September 2022</td>
-          </tr>
-          <tr>
-            <td class='small-title'>Challenge Report Deadline</td>
-            <td>25 September 2022</td>
-          </tr>
-          <tr>
-            <td class='small-title'>Extended Abstract Deadline</td>
-            <td>30 September 2022</td>
-          </tr>
-          <tr>
-            <td class='small-title'>Notification to Authors</td>
-            <td>7 October 2022</td>
-          </tr>
-          <tr>
-            <td class='small-title'>Workshop Date</td>
-            <td>24 October 2022</td>
-          </tr>
-        </table>
       </div>
-    </section>
+      <table class="dates-table">
+        <tr>
+          <td class='small-title'>Challenge Deadline</td>
+          <td>18 September 2022</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Challenge Report Deadline</td>
+          <td>25 September 2022</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Extended Abstract Deadline</td>
+          <td>30 September 2022</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Notification to Authors</td>
+          <td>7 October 2022</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Workshop Date</td>
+          <td>24 October 2022</td>
+        </tr>
+      </table>
+    </div>
+  </section>
 
-    <section id="invited">
-      <div class="align-center">
-        <h3 class="title large-text">Invited Speakers</h3>
-        <p class="slide-text">
-          We have several invited talks scheduled for the workshop
-        </p>
-      </div>
-      <div class="container">
-        <div class="row align-items-center md-flip-order">
-          <div class="col-xs-12">
-            <div class="consortium_logos">
-              <div class="image">
-                <img src="../assets/images/Zelnik_Lihi.jpg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://lihi.net.technion.ac.il/">Lihi Zelnik-Manor</a>
-                  <p class="slide-text">ECE, Technion</p>
-                  <button type="button" class="btn collapsible">Abstract</button>
-                  <div class="content">
-                    <p>Imagine being able to touch virtual objects, interact physically with computer games, or feel 
-                      items that are located elsewhere on the globe. The breadth of applications of such haptic 
-                      technology would be diverse and broad. Interestingly, while excellent visual and auditory 
-                      feedback devices exist, cutaneous feedback devices are in infancy stages. In this talk I will 
-                      present a brief introduction to the world of haptic feedback devices and the challenges it poses. 
-                      Then I will present HUGO, a device designed in a human-centered process, triggering the 
-                      mechanoreceptors in our skin thus enabling people to experience the touch of digitized surfaces 
-                      “in-the-wild". This talk is likely to leave us with many open questions that require research to 
-                      answer.</p>
-                  </div>
+  <section id="invited">
+    <div class="align-center">
+      <h3 class="title large-text">Invited Speakers</h3>
+      <p class="slide-text">
+        We have several invited talks scheduled for the workshop
+      </p>
+    </div>
+    <div class="container">
+      <div class="row align-items-center md-flip-order">
+        <div class="col-xs-12">
+          <div class="consortium_logos">
+            <div class="image">
+              <img src="../assets/images/Zelnik_Lihi.jpg" alt="" title="" /><br /><a class="slide-text"
+                href="https://lihi.net.technion.ac.il/">Lihi Zelnik-Manor</a>
+              <p class="slide-text">ECE, Technion</p>
+              <button type="button" class="btn collapsible">Abstract</button>
+              <div class="content">
+                <p>Imagine being able to touch virtual objects, interact physically with computer games, or feel
+                  items that are located elsewhere on the globe. The breadth of applications of such haptic
+                  technology would be diverse and broad. Interestingly, while excellent visual and auditory
+                  feedback devices exist, cutaneous feedback devices are in infancy stages. In this talk I will
+                  present a brief introduction to the world of haptic feedback devices and the challenges it poses.
+                  Then I will present HUGO, a device designed in a human-centered process, triggering the
+                  mechanoreceptors in our skin thus enabling people to experience the touch of digitized surfaces
+                  “in-the-wild". This talk is likely to leave us with many open questions that require research to
+                  answer.</p>
               </div>
-              <div class="image">
-                <img src="../assets/images/Michal_Irani.jpg" alt=""
-                  title="" /><br /><a class="slide-text" href="http://www.weizmann.ac.il/math/irani/">Michal Irani</a>
-                  <p class="slide-text">Weizmann Institute of Science</p>
-                  <button type="button" class="btn collapsible">Abstract</button>
-                  <div class="content">
-                    <p>Can we reconstruct natural images & videos that a person 
-                      saw, directly from his/her fMRI brain recordings?  This is
-                       a particularly difficult problem, given the very few 
-                       “paired” training examples available (images/videos with 
-                       their corresponding fMRI recordings). In this talk I will
-                        show how such image/video reconstruction can be 
-                        performed, despite the few training examples, by 
-                        exploiting Self-Supervised training on many “unpaired” 
-                        data – i.e., images & videos without any fMRI recordings. 
-                      I will further show how large-scale image classification 
-                      (to more than 1000 classes!) can be performed on sparse fMRI data.</p>
-                  </div>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Michal_Irani.jpg" alt="" title="" /><br /><a class="slide-text"
+                href="http://www.weizmann.ac.il/math/irani/">Michal Irani</a>
+              <p class="slide-text">Weizmann Institute of Science</p>
+              <button type="button" class="btn collapsible">Abstract</button>
+              <div class="content">
+                <p>Can we reconstruct natural images & videos that a person
+                  saw, directly from his/her fMRI brain recordings?  This is
+                  a particularly difficult problem, given the very few
+                  “paired” training examples available (images/videos with
+                  their corresponding fMRI recordings). In this talk I will
+                  show how such image/video reconstruction can be
+                  performed, despite the few training examples, by
+                  exploiting Self-Supervised training on many “unpaired”
+                  data – i.e., images & videos without any fMRI recordings.
+                  I will further show how large-scale image classification
+                  (to more than 1000 classes!) can be performed on sparse fMRI data.</p>
               </div>
-              <div class="image">
-                <img src="../assets/images/Abhinav_Gupta.jpg" alt=""
-                  title="" /><br /><a class="slide-text" href="http://www.cs.cmu.edu/~abhinavg/">Abhinav Gupta</a>
-                  <p class="slide-text">Carnegie Mellon University</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Abhinav_Gupta.jpg" alt="" title="" /><br /><a class="slide-text"
+                href="http://www.cs.cmu.edu/~abhinavg/">Abhinav Gupta</a>
+              <p class="slide-text">Carnegie Mellon University</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Christoph_Feichtenhofer.jpg" alt="" title="" /><br /><a class="slide-text"
+                href="https://feichtenhofer.github.io/">Christoph Feichtenhofer</a>
+              <p class="slide-text">Meta AI</p>
+              <button type="button" class="btn collapsible">Abstract</button>
+              <div class="content">
+                <p>"This talk discusses recent research for self-supervised learning from video. I first present a
+                  conceptually simple extension of Masked Autoencoders (MAE) to spatiotemporal representation learning
+                  from videos. We randomly mask out spacetime patches in videos and learn an autoencoder to reconstruct
+                  them in pixels. A high masking ratio leads to a large speedup, e.g., > 4x in wall-clock time or even
+                  more.
+                  Then I will present Masked Feature Prediction (MaskFeat) for self-supervised pre-training of video
+                  models. Our approach first randomly masks out a portion of the input sequence and then predicts the
+                  feature of the masked regions. We study five different types of features and find Histograms of
+                  Oriented Gradients, a hand-crafted feature descriptor, works particularly well in terms of both
+                  performance and efficiency.
+                  Finally, I will talk about a simple extension of MAE to self-supervised representation learning from
+                  audio spectrograms.
+                  Following the Transformer encoder-decoder design in MAE, our Audio-MAE first encodes audio spectrogram
+                  patches with a high masking ratio, feeding only the non-masked tokens through encoder layers.
+                  We observe that masked pre-training can outperform supervised pre-training by large margins. We
+                  further report encouraging results of training on real-world, uncurated Instagram data. Our studies
+                  suggests that the general framework of masked autoencoding (BERT, MAE, etc.) can be a unified
+                  methodology for representation learning with minimal domain knowledge. "</p>
               </div>
-              <div class="image">
-                <img src="../assets/images/Christoph_Feichtenhofer.jpg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://feichtenhofer.github.io/">Christoph Feichtenhofer</a>
-                  <p class="slide-text">Meta AI</p>
-                  <button type="button" class="btn collapsible">Abstract</button>
-                  <div class="content">
-                    <p>"This talk discusses recent research for self-supervised learning from video. I first present a conceptually simple extension of Masked Autoencoders (MAE) to spatiotemporal representation learning from videos. We randomly mask out spacetime patches in videos and learn an autoencoder to reconstruct them in pixels. A high masking ratio leads to a large speedup, e.g., > 4x in wall-clock time or even more.
-                      Then I will present Masked Feature Prediction (MaskFeat) for self-supervised pre-training of video models. Our approach first randomly masks out a portion of the input sequence and then predicts the feature of the masked regions. We study five different types of features and find Histograms of Oriented Gradients, a hand-crafted feature descriptor, works particularly well in terms of both performance and efficiency.  
-                      Finally, I will talk about a simple extension of MAE to self-supervised representation learning from audio spectrograms. 
-                      Following the Transformer encoder-decoder design in MAE, our Audio-MAE first encodes audio spectrogram patches with a high masking ratio, feeding only the non-masked tokens through encoder layers.
-                      We observe that masked pre-training can outperform supervised pre-training by large margins. We further report encouraging results of training on real-world, uncurated Instagram data. Our studies suggests that the general framework of masked autoencoding (BERT, MAE, etc.) can be a unified methodology for representation learning with minimal domain knowledge. "</p>
-                  </div>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Joao_Carreira.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://scholar.google.com/citations?user=IUZ-7_cAAAAJ&hl=en">João Carreira</a>
-                  <p class="slide-text">Google DeepMind</p>
-                  </div>
-              </div>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Joao_Carreira.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://scholar.google.com/citations?user=IUZ-7_cAAAAJ&hl=en">João Carreira</a>
+              <p class="slide-text">Google DeepMind</p>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+    </div>
+  </section>
 
-    <section id="program">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 align-center">
-            <h3 class="title large-text">Schedule</h3>
-          </div>
+  <section id="program">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">Schedule</h3>
         </div>
-        <p class="justified">
-          All dates are local to Tel Aviv's time, GMT+3.
-        </p>
-        <table class="program-table">
-          <tr>
-            <td class='small-title'>Start Time</td>
-            <td class='small-title'>End Time</td>
-            <td class='small-title'>Title</td>
-            <td class='small-title'>Speaker</td>
-          </tr>
-          <tr>
-            <td>9:00 AM</td>
-            <td>9:15 AM</td>
-            <td class='small-title'>Welcome Remarks</td>
-            <td class='small-title'>Giovanni Maria Farinella</td>
-          </tr>
-          <tr>
-            <td>9:15 AM</td>
-            <td>9:45 AM</td>
-            <td class='small-title'>Invited Talk -- Digitizing Touch
-              <button type="button" class="btn collapsible">Abstract</button>
-                  <div class="content">
-                    <p>Imagine being able to touch virtual objects, interact physically with computer games, or feel 
-                      items that are located elsewhere on the globe. The breadth of applications of such haptic 
-                      technology would be diverse and broad. Interestingly, while excellent visual and auditory 
-                      feedback devices exist, cutaneous feedback devices are in infancy stages. In this talk I will 
-                      present a brief introduction to the world of haptic feedback devices and the challenges it poses. 
-                      Then I will present HUGO, a device designed in a human-centered process, triggering the 
-                      mechanoreceptors in our skin thus enabling people to experience the touch of digitized surfaces 
-                      “in-the-wild". This talk is likely to leave us with many open questions that require research to 
-                      answer.</p>
-                  </div>
-            </td>
-            <td class='small-title'>Lihi Zelnik-Manor</td>
-          </tr>
-          <tr>
-            <td>9:45 AM</td>
-            <td>10:00 AM</td>
-            <td class='small-title'>Ego4D Challenge Results: Insights from the Winning Approaches across Five Benchmarks</td>
-            <td class='small-title'>Rohit Girdhar</td>
-          </tr>
-          <tr>
-            <td>10:00 AM</td>
-            <td>10:30 AM</td>
-            <td class='small-title'>Break</td>
-            <td class='small-title'></td>
-          </tr>
-          <tr>
-            <td>10:30 AM</td>
-            <td>11:00 AM</td>
-            <td class='small-title'>Invited Talk -- Masked Video Representation Learning
-              <button type="button" class="btn collapsible">Abstract</button>
-                  <div class="content">
-                    <p>This talk discusses recent research for self-supervised learning from video. I first present a conceptually simple extension of Masked Autoencoders (MAE) to spatiotemporal representation learning from videos. We randomly mask out spacetime patches in videos and learn an autoencoder to reconstruct them in pixels. A high masking ratio leads to a large speedup, e.g., > 4x in wall-clock time or even more.
-                      Then I will present Masked Feature Prediction (MaskFeat) for self-supervised pre-training of video models. Our approach first randomly masks out a portion of the input sequence and then predicts the feature of the masked regions. We study five different types of features and find Histograms of Oriented Gradients, a hand-crafted feature descriptor, works particularly well in terms of both performance and efficiency.  
-                      Finally, I will talk about a simple extension of MAE to self-supervised representation learning from audio spectrograms. 
-                      Following the Transformer encoder-decoder design in MAE, our Audio-MAE first encodes audio spectrogram patches with a high masking ratio, feeding only the non-masked tokens through encoder layers.
-                      We observe that masked pre-training can outperform supervised pre-training by large margins. We further report encouraging results of training on real-world, uncurated Instagram data. Our studies suggests that the general framework of masked autoencoding (BERT, MAE, etc.) can be a unified methodology for representation learning with minimal domain knowledge.</p>
-                  </div>
-            </td>
-            <td class='small-title'>Christoph Feichtenhofer</td>
-          </tr>
-          <tr>
-            <td>11:00 AM</td>
-            <td>11:15 AM</td>
-            <td class='small-title'>Episodic Memory for Egocentric Perception: Sharing the Leading Approaches to Moments, Visual and Natural Language Queries</td>
-            <td class='small-title'>Satwik Kottur</td>
-          </tr>
-          <tr>
-            <td>11:15 AM</td>
-            <td>11:30 AM</td>
-            <td class='small-title'>Hand + Object Interactions: Examining Leading Approaches to Temporal Localization, Active Object Detection and State-Change Classification</td>
-            <td class='small-title'>Siddhant Bansal</td>
-          </tr>
-          <tr>
-            <td>11:30 AM</td>
-            <td>11:45 AM</td>
-            <td class='small-title'>Forecasting Activities in First-Person Videos: What Works for Action, Object Interaction, and Hand Position Anticipation</td>
-            <td class='small-title'>Antonino Furnari</td>
-          </tr>
-          <tr>
-            <td>11:45 AM</td>
-            <td>12:00 PM</td>
-            <td class='small-title'>Understanding Interaction: Sharing Insights from Social Understanding and AV Diarization in the Context of Egocentric Videos</td>
-            <td class='small-title'>Mike Z. Shou</td>
-          </tr>
-          <tr>
-            <td>12:00 PM</td>
-            <td>12:15 PM</td>
-            <td class='small-title'>Winners felicitation/certificate</td>
-            <td class='small-title'>Andrew Westbury</td>
-          </tr>
-          <tr>
-            <td>12:15 PM</td>
-            <td>12:20 PM</td>
-            <td class='small-title'>Spotlight Talk -- SOS! Self-supervised Learning Over Sets Of Handled Objects In Egocentric Action Recognition</td>
-            <td class='small-title'>Victor Escorcia</td>
-          </tr>
-          <tr>
-            <td>12:20 PM</td>
-            <td>12:25 PM</td>
-            <td class='small-title'>Spotlight Talk -- UnrealEgo: A New Dataset for Robust Egocentric 3D Human Motion Capture</td>
-            <td class='small-title'>Hiroyasu Akada</td>
-          </tr>
-          <tr>
-            <td>12:25 PM</td>
-            <td>12:30 PM</td>
-            <td class='small-title'>Spotlight Talk -- EgoBody: Human Body Shape and Motion of Interacting People from Head-Mounted Devices</td>
-            <td class='small-title'>Siwei Zhang</td>
-          </tr>
-          <tr>
-            <td>12:30 PM</td>
-            <td>12:35 PM</td>
-            <td class='small-title'>Spotlight Talk -- OWL (Observe, Watch, Listen): Audiovisual Temporal Context for Localizing Actions in Egocentric Videos</td>
-            <td class='small-title'>Victor Escorcia</td>
-          </tr>
-          <tr>
-            <td>12:35 PM</td>
-            <td>12:40 PM</td>
-            <td class='small-title'>Spotlight Talk -- Students taught by multimodal teachers are superior action recognizers (VIRTUAL)</td>
-            <td class='small-title'>Gorjan Radevski</td>
-          </tr>
-          <tr>
-            <td>12:40 PM</td>
-            <td>12:45 PM</td>
-            <td class='small-title'>Spotlight Talk -- Event-based Stereo Depth Estimation from Ego-motion using Ray Density Fusion (VIRTUAL)</td>
-            <td class='small-title'>Suman Ghosh</td>
-          </tr>
-          <tr>
-            <td>12:45 PM</td>
-            <td>12:50 PM</td>
-            <td class='small-title'>Spotlight Talk -- Hand and Object Detection in Egocentric Videos with Color Local Features and Random Forest (VIRTUAL)</td>
-            <td class='small-title'>María Elena Buemi</td>
-          </tr>
-          <tr>
-            <td>12:50 PM</td>
-            <td>12:55 PM</td>
-            <td class='small-title'>Spotlight Talk -- Egocentric Activity Recognition and Localization on a 3D Map</td>
-            <td class='small-title'>James Rehg</td>
-          </tr>
-          <tr>
-            <td>1:00 PM</td>
-            <td>2:00 PM</td>
-            <td class='small-title'>Lunch Break</td>
-            <td class='small-title'></td>
-          </tr>
-          <tr>
-            <td>2:00 PM</td>
-            <td>2:30 PM</td>
-            <td class='small-title'>Invited talk -- “Mind Reading”:  Self-supervised decoding of visual data from brain activity
-              <button type="button" class="btn collapsible">Abstract</button>
-                  <div class="content">
-                    <p>Can we reconstruct natural images & videos that a person 
-                      saw, directly from his/her fMRI brain recordings?  This is
-                       a particularly difficult problem, given the very few 
-                       “paired” training examples available (images/videos with 
-                       their corresponding fMRI recordings). In this talk I will
-                        show how such image/video reconstruction can be 
-                        performed, despite the few training examples, by 
-                        exploiting Self-Supervised training on many “unpaired” 
-                        data – i.e., images & videos without any fMRI recordings. 
-                      I will further show how large-scale image classification 
-                      (to more than 1000 classes!) can be performed on sparse fMRI data.</p>
-                  </div>
-            </td>
-            <td class='small-title'>Michal Irani</td>
-          </tr>
-          <tr>
-            <td>2:30 PM</td>
-            <td>3:30 PM</td>
-            <td class='small-title'>Project Aria: Devices and Machine Perception Services Supporting Academic Research in Egocentric Perception</td>
-            <td class='small-title'>Prince Gupta</td>
-          </tr>
-          <tr>
-            <td>3:30 PM</td>
-            <td>4:30 PM</td>
-            <td class='small-title'>Break, poster session + invited papers/posters</td>
-            <td class='small-title'></td>
-          </tr>
-          <tr>
-            <td>4:30 PM</td>
-            <td>5:00 PM</td>
-            <td class='small-title'>Invited Talk</td>
-            <td class='small-title'>João Carreira</td>
-          </tr>
-          <tr>
-            <td>5:00 PM</td>
-            <td>5:30 PM</td>
-            <td class='small-title'>Ego4D Battle Royale: Who Knows the Dataset Best?</td>
-            <td class='small-title'>Devansh Kukreja</td>
-          </tr>
-          <tr>
-            <td>5:30 PM</td>
-            <td>6:00 PM</td>
-            <td class='small-title'>Invited Talk</td>
-            <td class='small-title'>Abhinav Gupta</td>
-          </tr>
-          <tr>
-            <td>6:00 PM</td>
-            <td>6:10 PM</td>
-            <td class='small-title'>Closing Remarks</td>
-            <td class='small-title'>Rohit Girdhar</td>
-          </tr>
-        </table>
       </div>
-    </section>
+      <p class="justified">
+        All dates are local to Tel Aviv's time, GMT+3.
+      </p>
+      <table class="program-table">
+        <tr>
+          <td class='small-title'>Start Time</td>
+          <td class='small-title'>End Time</td>
+          <td class='small-title'>Title</td>
+          <td class='small-title'>Speaker</td>
+        </tr>
+        <tr>
+          <td>9:00 AM</td>
+          <td>9:15 AM</td>
+          <td class='small-title'>Welcome Remarks</td>
+          <td class='small-title'>Giovanni Maria Farinella</td>
+        </tr>
+        <tr>
+          <td>9:15 AM</td>
+          <td>9:45 AM</td>
+          <td class='small-title'>Invited Talk -- Digitizing Touch
+            <button type="button" class="btn collapsible">Abstract</button>
+            <div class="content">
+              <p>Imagine being able to touch virtual objects, interact physically with computer games, or feel
+                items that are located elsewhere on the globe. The breadth of applications of such haptic
+                technology would be diverse and broad. Interestingly, while excellent visual and auditory
+                feedback devices exist, cutaneous feedback devices are in infancy stages. In this talk I will
+                present a brief introduction to the world of haptic feedback devices and the challenges it poses.
+                Then I will present HUGO, a device designed in a human-centered process, triggering the
+                mechanoreceptors in our skin thus enabling people to experience the touch of digitized surfaces
+                “in-the-wild". This talk is likely to leave us with many open questions that require research to
+                answer.</p>
+            </div>
+          </td>
+          <td class='small-title'>Lihi Zelnik-Manor</td>
+        </tr>
+        <tr>
+          <td>9:45 AM</td>
+          <td>10:00 AM</td>
+          <td class='small-title'>Ego4D Challenge Results: Insights from the Winning Approaches across Five Benchmarks
+          </td>
+          <td class='small-title'>Rohit Girdhar</td>
+        </tr>
+        <tr>
+          <td>10:00 AM</td>
+          <td>10:30 AM</td>
+          <td class='small-title'>Break</td>
+          <td class='small-title'></td>
+        </tr>
+        <tr>
+          <td>10:30 AM</td>
+          <td>11:00 AM</td>
+          <td class='small-title'>Invited Talk -- Masked Video Representation Learning
+            <button type="button" class="btn collapsible">Abstract</button>
+            <div class="content">
+              <p>This talk discusses recent research for self-supervised learning from video. I first present a
+                conceptually simple extension of Masked Autoencoders (MAE) to spatiotemporal representation learning
+                from videos. We randomly mask out spacetime patches in videos and learn an autoencoder to reconstruct
+                them in pixels. A high masking ratio leads to a large speedup, e.g., > 4x in wall-clock time or even
+                more.
+                Then I will present Masked Feature Prediction (MaskFeat) for self-supervised pre-training of video
+                models. Our approach first randomly masks out a portion of the input sequence and then predicts the
+                feature of the masked regions. We study five different types of features and find Histograms of Oriented
+                Gradients, a hand-crafted feature descriptor, works particularly well in terms of both performance and
+                efficiency.
+                Finally, I will talk about a simple extension of MAE to self-supervised representation learning from
+                audio spectrograms.
+                Following the Transformer encoder-decoder design in MAE, our Audio-MAE first encodes audio spectrogram
+                patches with a high masking ratio, feeding only the non-masked tokens through encoder layers.
+                We observe that masked pre-training can outperform supervised pre-training by large margins. We further
+                report encouraging results of training on real-world, uncurated Instagram data. Our studies suggests
+                that the general framework of masked autoencoding (BERT, MAE, etc.) can be a unified methodology for
+                representation learning with minimal domain knowledge.</p>
+            </div>
+          </td>
+          <td class='small-title'>Christoph Feichtenhofer</td>
+        </tr>
+        <tr>
+          <td>11:00 AM</td>
+          <td>11:15 AM</td>
+          <td class='small-title'>Episodic Memory for Egocentric Perception: Sharing the Leading Approaches to Moments,
+            Visual and Natural Language Queries</td>
+          <td class='small-title'>Satwik Kottur</td>
+        </tr>
+        <tr>
+          <td>11:15 AM</td>
+          <td>11:30 AM</td>
+          <td class='small-title'>Hand + Object Interactions: Examining Leading Approaches to Temporal Localization,
+            Active Object Detection and State-Change Classification</td>
+          <td class='small-title'>Siddhant Bansal</td>
+        </tr>
+        <tr>
+          <td>11:30 AM</td>
+          <td>11:45 AM</td>
+          <td class='small-title'>Forecasting Activities in First-Person Videos: What Works for Action, Object
+            Interaction, and Hand Position Anticipation</td>
+          <td class='small-title'>Antonino Furnari</td>
+        </tr>
+        <tr>
+          <td>11:45 AM</td>
+          <td>12:00 PM</td>
+          <td class='small-title'>Understanding Interaction: Sharing Insights from Social Understanding and AV
+            Diarization in the Context of Egocentric Videos</td>
+          <td class='small-title'>Mike Z. Shou</td>
+        </tr>
+        <tr>
+          <td>12:00 PM</td>
+          <td>12:15 PM</td>
+          <td class='small-title'>Winners felicitation/certificate</td>
+          <td class='small-title'>Andrew Westbury</td>
+        </tr>
+        <tr>
+          <td>12:15 PM</td>
+          <td>12:20 PM</td>
+          <td class='small-title'>Spotlight Talk -- SOS! Self-supervised Learning Over Sets Of Handled Objects In
+            Egocentric Action Recognition</td>
+          <td class='small-title'>Victor Escorcia</td>
+        </tr>
+        <tr>
+          <td>12:20 PM</td>
+          <td>12:25 PM</td>
+          <td class='small-title'>Spotlight Talk -- UnrealEgo: A New Dataset for Robust Egocentric 3D Human Motion
+            Capture</td>
+          <td class='small-title'>Hiroyasu Akada</td>
+        </tr>
+        <tr>
+          <td>12:25 PM</td>
+          <td>12:30 PM</td>
+          <td class='small-title'>Spotlight Talk -- EgoBody: Human Body Shape and Motion of Interacting People from
+            Head-Mounted Devices</td>
+          <td class='small-title'>Siwei Zhang</td>
+        </tr>
+        <tr>
+          <td>12:30 PM</td>
+          <td>12:35 PM</td>
+          <td class='small-title'>Spotlight Talk -- OWL (Observe, Watch, Listen): Audiovisual Temporal Context for
+            Localizing Actions in Egocentric Videos</td>
+          <td class='small-title'>Victor Escorcia</td>
+        </tr>
+        <tr>
+          <td>12:35 PM</td>
+          <td>12:40 PM</td>
+          <td class='small-title'>Spotlight Talk -- Students taught by multimodal teachers are superior action
+            recognizers (VIRTUAL)</td>
+          <td class='small-title'>Gorjan Radevski</td>
+        </tr>
+        <tr>
+          <td>12:40 PM</td>
+          <td>12:45 PM</td>
+          <td class='small-title'>Spotlight Talk -- Event-based Stereo Depth Estimation from Ego-motion using Ray
+            Density Fusion (VIRTUAL)</td>
+          <td class='small-title'>Suman Ghosh</td>
+        </tr>
+        <tr>
+          <td>12:45 PM</td>
+          <td>12:50 PM</td>
+          <td class='small-title'>Spotlight Talk -- Hand and Object Detection in Egocentric Videos with Color Local
+            Features and Random Forest (VIRTUAL)</td>
+          <td class='small-title'>María Elena Buemi</td>
+        </tr>
+        <tr>
+          <td>12:50 PM</td>
+          <td>12:55 PM</td>
+          <td class='small-title'>Spotlight Talk -- Egocentric Activity Recognition and Localization on a 3D Map</td>
+          <td class='small-title'>James Rehg</td>
+        </tr>
+        <tr>
+          <td>1:00 PM</td>
+          <td>2:00 PM</td>
+          <td class='small-title'>Lunch Break</td>
+          <td class='small-title'></td>
+        </tr>
+        <tr>
+          <td>2:00 PM</td>
+          <td>2:30 PM</td>
+          <td class='small-title'>Invited talk -- “Mind Reading”: Self-supervised decoding of visual data from brain
+            activity
+            <button type="button" class="btn collapsible">Abstract</button>
+            <div class="content">
+              <p>Can we reconstruct natural images & videos that a person
+                saw, directly from his/her fMRI brain recordings?  This is
+                a particularly difficult problem, given the very few
+                “paired” training examples available (images/videos with
+                their corresponding fMRI recordings). In this talk I will
+                show how such image/video reconstruction can be
+                performed, despite the few training examples, by
+                exploiting Self-Supervised training on many “unpaired”
+                data – i.e., images & videos without any fMRI recordings.
+                I will further show how large-scale image classification
+                (to more than 1000 classes!) can be performed on sparse fMRI data.</p>
+            </div>
+          </td>
+          <td class='small-title'>Michal Irani</td>
+        </tr>
+        <tr>
+          <td>2:30 PM</td>
+          <td>3:30 PM</td>
+          <td class='small-title'>Project Aria: Devices and Machine Perception Services Supporting Academic Research in
+            Egocentric Perception</td>
+          <td class='small-title'>Prince Gupta</td>
+        </tr>
+        <tr>
+          <td>3:30 PM</td>
+          <td>4:30 PM</td>
+          <td class='small-title'>Break, poster session + invited papers/posters</td>
+          <td class='small-title'></td>
+        </tr>
+        <tr>
+          <td>4:30 PM</td>
+          <td>5:00 PM</td>
+          <td class='small-title'>Invited Talk</td>
+          <td class='small-title'>João Carreira</td>
+        </tr>
+        <tr>
+          <td>5:00 PM</td>
+          <td>5:30 PM</td>
+          <td class='small-title'>Ego4D Battle Royale: Who Knows the Dataset Best?</td>
+          <td class='small-title'>Devansh Kukreja</td>
+        </tr>
+        <tr>
+          <td>5:30 PM</td>
+          <td>6:00 PM</td>
+          <td class='small-title'>Invited Talk</td>
+          <td class='small-title'>Abhinav Gupta</td>
+        </tr>
+        <tr>
+          <td>6:00 PM</td>
+          <td>6:10 PM</td>
+          <td class='small-title'>Closing Remarks</td>
+          <td class='small-title'>Rohit Girdhar</td>
+        </tr>
+      </table>
+    </div>
+  </section>
 
-    <section id="instructions">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 align-center">
-            <h3 class="title large-text">Instructions for Presentation and Poster session</h3>
-          </div>
+  <section id="instructions">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">Instructions for Presentation and Poster session</h3>
         </div>
-        <h3 class="small-title">
-          In-person/Virtual Presentation Information
-        </h3>
-        <ul class="cfp">
-          <li>Presentations will be held in-person or virtually. Rare cases of
-            pre-recorded full presentations.</li>
-          <li>In person presentations will be broadcast into the platform 
-            including speaker video, sound and presentation.
-          </li>
-          <li>Virtual speakers will receive a link from Ortra to connect to the 
-            presentation hall and will be projected on the screen including 
-            speaker video, sound and presentation.
-          </li>
-          <li>All presentations will be live! Pre-recordings will be used as
-            emergency backups in case a speaker could not attend.
-          </li>
-          <li>Each session will be monitored by two technicians in the 
-            presentation hall: broadcasting technician (that monitors the 
-            transmission from the hall to the platform) & AV technician (that 
-            monitors the AV equipment in the hall) + live event manager that 
-            monitors the whole platform.
-          </li>
-        </ul>
-
-        <h3 class="small-title">
-          Poster Preparation Information
-        </h3>
-        <ul class="cfp">
-          <li>
-            Posters should be in Landscape mode (as is common in, say, CVPR).
-          </li>
-          <li>
-            Recommended poster dimensions are: 118.8cm wide X 84.1cm high. 
-            This is the standard A0 (landscape) paper size.
-          </li>
-          <li>
-            We plan to have about 1 meter between poster boards, to reduce 
-            crowding in the in-person poster sessions.
-          </li>
-          <li>
-            For your convenience, here is a blank Google Slides template of the 
-            appropriate dimensions: <a href="https://tinyurl.com/ECCVPoster">
-              https://tinyurl.com/ECCVPoster
-            </a>
-          </li>
-          <li>
-            Adhesive material and/or pins will be provided for mounting the
-            posters to the boards.
-          </li>
-          <li>
-            Making and printing posters is your responsibility. However, if 
-            poster presenters prefer to print their posters locally, Ortra has 
-            arranged with a local printing house to support this service. 
-            Please see the following link: 
-            <a href="https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.easyform.co.il%2F%3FformId%3De2a8595c-6c2f-ed11-ad2b-d4f5ef253abd&data=05%7C01%7Ctomer.m%40ee.technion.ac.il%7C543503129f5349ee47a508da980ad9ed%7Cf1502c4cee2e411c9715c855f6753b84%7C1%7C0%7C637989469630460061%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=ZJ0t70%2BhhYg3WXDoZ%2FCONge7lwmS58i%2BnVxuMOfSFl0%3D&reserved=0">Click Here</a> 
-            for a poster printing 
-            request form. This service is handled directly by the printing house.
-          </li>
-          <li>
-            Poster presenters are expected to set up their posters just prior 
-            to their poster session. We will not provide this service, 
-            regardless of in-person or virtual attendance.
-          </li>
-        </ul>
       </div>
-    </section>
+      <h3 class="small-title">
+        In-person/Virtual Presentation Information
+      </h3>
+      <ul class="cfp">
+        <li>Presentations will be held in-person or virtually. Rare cases of
+          pre-recorded full presentations.</li>
+        <li>In person presentations will be broadcast into the platform
+          including speaker video, sound and presentation.
+        </li>
+        <li>Virtual speakers will receive a link from Ortra to connect to the
+          presentation hall and will be projected on the screen including
+          speaker video, sound and presentation.
+        </li>
+        <li>All presentations will be live! Pre-recordings will be used as
+          emergency backups in case a speaker could not attend.
+        </li>
+        <li>Each session will be monitored by two technicians in the
+          presentation hall: broadcasting technician (that monitors the
+          transmission from the hall to the platform) & AV technician (that
+          monitors the AV equipment in the hall) + live event manager that
+          monitors the whole platform.
+        </li>
+      </ul>
 
-    <section id="qa">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 align-center">
-            <h3 class="title large-text">FAQs</h3>
-          </div>
+      <h3 class="small-title">
+        Poster Preparation Information
+      </h3>
+      <ul class="cfp">
+        <li>
+          Posters should be in Landscape mode (as is common in, say, CVPR).
+        </li>
+        <li>
+          Recommended poster dimensions are: 118.8cm wide X 84.1cm high.
+          This is the standard A0 (landscape) paper size.
+        </li>
+        <li>
+          We plan to have about 1 meter between poster boards, to reduce
+          crowding in the in-person poster sessions.
+        </li>
+        <li>
+          For your convenience, here is a blank Google Slides template of the
+          appropriate dimensions: <a href="https://tinyurl.com/ECCVPoster">
+            https://tinyurl.com/ECCVPoster
+          </a>
+        </li>
+        <li>
+          Adhesive material and/or pins will be provided for mounting the
+          posters to the boards.
+        </li>
+        <li>
+          Making and printing posters is your responsibility. However, if
+          poster presenters prefer to print their posters locally, Ortra has
+          arranged with a local printing house to support this service.
+          Please see the following link:
+          <a
+            href="https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.easyform.co.il%2F%3FformId%3De2a8595c-6c2f-ed11-ad2b-d4f5ef253abd&data=05%7C01%7Ctomer.m%40ee.technion.ac.il%7C543503129f5349ee47a508da980ad9ed%7Cf1502c4cee2e411c9715c855f6753b84%7C1%7C0%7C637989469630460061%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=ZJ0t70%2BhhYg3WXDoZ%2FCONge7lwmS58i%2BnVxuMOfSFl0%3D&reserved=0">Click
+            Here</a>
+          for a poster printing
+          request form. This service is handled directly by the printing house.
+        </li>
+        <li>
+          Poster presenters are expected to set up their posters just prior
+          to their poster session. We will not provide this service,
+          regardless of in-person or virtual attendance.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="qa">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">FAQs</h3>
         </div>
+      </div>
 
-        <div class="timelines-container">
-          <div class="row timeline-element divider-line">
-            <div
-              class="
+      <div class="timelines-container">
+        <div class="row timeline-element divider-line">
+          <div class="
                 col-lg-6
                 col-md-6
                 col-xs-11
                 col-xs-offset-1
                 col-md-offset-0
                 col-lg-offset-0
-              "
-            >
-              <div class="timeline-text-content">
-                <h4 class="small-title">
-                  Does the workshop have any proceedings?
-                </h4>
-                <p>
-                  No, we will only accept extended abstracts.
-                </p>
-              </div>
+              ">
+            <div class="timeline-text-content">
+              <h4 class="small-title">
+                Does the workshop have any proceedings?
+              </h4>
+              <p>
+                No, we will only accept extended abstracts.
+              </p>
             </div>
-            <span class="timeline-point"></span>
-            <div class="timeline-data-panel col-lg-6 col-md-6"></div>
           </div>
+          <span class="timeline-point"></span>
+          <div class="timeline-data-panel col-lg-6 col-md-6"></div>
+        </div>
 
-          <div class="row timeline-element divider-line">
-            <div class="timeline-data-panel col-lg-6 col-md-6"></div>
-            <span class="timeline-point"></span>
-            <div
-              class="
+        <div class="row timeline-element divider-line">
+          <div class="timeline-data-panel col-lg-6 col-md-6"></div>
+          <span class="timeline-point"></span>
+          <div class="
                 col-lg-6
                 col-md-6
                 col-xs-11
                 col-xs-offset-1
                 col-md-offset-0
                 col-lg-offset-0
-              "
-            >
-              <div class="timeline-text-content">
-                <h4 class="small-title">When will the challenges open/close?</h4>
-                <p>
-                  The Ego4D challenges are open - please see the
-                  <a href="https://ego4d-data.org/docs/challenge/">challenge documentation here.</a>
-                </p>
-              </div>
+              ">
+            <div class="timeline-text-content">
+              <h4 class="small-title">When will the challenges open/close?</h4>
+              <p>
+                The Ego4D challenges are open - please see the
+                <a href="https://ego4d-data.org/docs/challenge/">challenge documentation here.</a>
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="organisers">
-      <div class="title-block align-center">
-        <h3 class="title large-text">Workshop Organisers</h3>
-      </div>
-      <div class="container">
-        <div class="row align-items-center md-flip-order">
-          <div class="col-xs-12">
-            <div class="consortium_logos">
-              <div class="image">
-                <img src="../assets/images/rohit.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://rohitgirdhar.github.io/">Rohit Girdhar</a><p class="slide-text">Meta AI</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Andrew.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www.linkedin.com/in/andrew-westbury-2757a31b">Andrew Westbury</a><p class="slide-text">Meta AI</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/michael.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://mwray.github.io/">Michael Wray</a><p class="slide-text">University of Bristol</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Antonino.png" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www.antoninofurnari.it/">Antonino Furnari</a><p class="slide-text">University of Catania</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Siddhant.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://sid2697.github.io/">Siddhant Bansal</a><p class="slide-text">IIIT Hyderabad</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Devansh.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www.linkedin.com/in/devanshkukreja/">Devansh Kukreja</a><p class="slide-text">Meta AI</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/kristen.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www.cs.utexas.edu/users/grauman/">Kristen Grauman</a><p class="slide-text">UT Austin</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Jitendra.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://people.eecs.berkeley.edu/~malik/">Jitendra Malik</a><p class="slide-text">UC Berkeley</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Dima.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="http://people.cs.bris.ac.uk/~damen/">Dima Damen</a><p class="slide-text">University of Bristol</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Giovanni.png" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www.dmi.unict.it/farinella/">Giovanni Maria Farinella</a><p class="slide-text">University of Catania</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/james.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://rehg.org/">James Rehg</a><p class="slide-text">Georgia Institute of Technology</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/David.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://luddy.indiana.edu/contact/profile/?David_Crandall">David Crandall</a><p class="slide-text">Indiana University</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Hyun.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www-users.cse.umn.edu/~hspark/">Hyun Soo Park</a><p class="slide-text">University of Minnesota</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Mike.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="http://www.columbia.edu/~zs2262/index.html">Mike Zheng Shou</a><p class="slide-text">NUS</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Jawahar.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://faculty.iiit.ac.in/~jawahar/">C.V. Jawahar</a><p class="slide-text">IIIT Hyderabad</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Kris.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www.cs.cmu.edu/~kkitani/">Kris Kitani</a><p class="slide-text">CMU</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Bernard.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www.kaust.edu.sa/en/study/faculty/bernard-ghanem">Bernard Ghanem</a><p class="slide-text">KAUST</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Jianbo.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://www.cis.upenn.edu/~jshi/">Jianbo Shi</a><p class="slide-text">University of Pennsylvania</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Yoichi.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://sites.google.com/ut-vision.org/ysato/">Yoichi Sato</a><p class="slide-text">University of Tokyo</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Pablo.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://scholar.google.com/citations?user=k0nZO90AAAAJ&hl=en">Pablo Arbelaez</a><p class="slide-text">Universidad de los Andes</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Aude.png" alt=""
-                  title="" /><br /><a class="slide-text" href="http://olivalab.mit.edu/audeoliva.html">Aude Oliva</a><p class="slide-text">MIT</p>
-              </div>
-              <div class="image">
-                <img src="../assets/images/Antonio.jpeg" alt=""
-                  title="" /><br /><a class="slide-text" href="https://groups.csail.mit.edu/vision/torralbalab/">Antonio Torralba</a><p class="slide-text">MIT</p>
-              </div>
+  <section id="organisers">
+    <div class="title-block align-center">
+      <h3 class="title large-text">Workshop Organisers</h3>
+    </div>
+    <div class="container">
+      <div class="row align-items-center md-flip-order">
+        <div class="col-xs-12">
+          <div class="consortium_logos">
+            <div class="image">
+              <img src="../assets/images/rohit.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://rohitgirdhar.github.io/">Rohit Girdhar</a>
+              <p class="slide-text">Meta AI</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Andrew.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.linkedin.com/in/andrew-westbury-2757a31b">Andrew Westbury</a>
+              <p class="slide-text">Meta AI</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/michael.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://mwray.github.io/">Michael Wray</a>
+              <p class="slide-text">University of Bristol</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Antonino.png" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.antoninofurnari.it/">Antonino Furnari</a>
+              <p class="slide-text">University of Catania</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Siddhant.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://sid2697.github.io/">Siddhant Bansal</a>
+              <p class="slide-text">IIIT Hyderabad</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Devansh.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.linkedin.com/in/devanshkukreja/">Devansh Kukreja</a>
+              <p class="slide-text">Meta AI</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/kristen.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.cs.utexas.edu/users/grauman/">Kristen Grauman</a>
+              <p class="slide-text">UT Austin</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Jitendra.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://people.eecs.berkeley.edu/~malik/">Jitendra Malik</a>
+              <p class="slide-text">UC Berkeley</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Dima.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="http://people.cs.bris.ac.uk/~damen/">Dima Damen</a>
+              <p class="slide-text">University of Bristol</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Giovanni.png" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.dmi.unict.it/farinella/">Giovanni Maria Farinella</a>
+              <p class="slide-text">University of Catania</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/james.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://rehg.org/">James Rehg</a>
+              <p class="slide-text">Georgia Institute of Technology</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/David.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://luddy.indiana.edu/contact/profile/?David_Crandall">David Crandall</a>
+              <p class="slide-text">Indiana University</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Hyun.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www-users.cse.umn.edu/~hspark/">Hyun Soo Park</a>
+              <p class="slide-text">University of Minnesota</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Mike.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="http://www.columbia.edu/~zs2262/index.html">Mike Zheng Shou</a>
+              <p class="slide-text">NUS</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Jawahar.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://faculty.iiit.ac.in/~jawahar/">C.V. Jawahar</a>
+              <p class="slide-text">IIIT Hyderabad</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Kris.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.cs.cmu.edu/~kkitani/">Kris Kitani</a>
+              <p class="slide-text">CMU</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Bernard.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.kaust.edu.sa/en/study/faculty/bernard-ghanem">Bernard Ghanem</a>
+              <p class="slide-text">KAUST</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Jianbo.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.cis.upenn.edu/~jshi/">Jianbo Shi</a>
+              <p class="slide-text">University of Pennsylvania</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Yoichi.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://sites.google.com/ut-vision.org/ysato/">Yoichi Sato</a>
+              <p class="slide-text">University of Tokyo</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Pablo.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://scholar.google.com/citations?user=k0nZO90AAAAJ&hl=en">Pablo Arbelaez</a>
+              <p class="slide-text">Universidad de los Andes</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Aude.png" alt="" title="" /><br /><a class="slide-text"
+                href="http://olivalab.mit.edu/audeoliva.html">Aude Oliva</a>
+              <p class="slide-text">MIT</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Antonio.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://groups.csail.mit.edu/vision/torralbalab/">Antonio Torralba</a>
+              <p class="slide-text">MIT</p>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </body>
-  <script>
+    </div>
+  </section>
 
-    // Add code snippet for abstract toggle (https://www.w3schools.com/howto/howto_js_collapsible.asp)
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
+  <section id="winners">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">Challenge Winners and Validation Reports</h3>
+        </div>
+      </div>
 
-    for (i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function() {
-        console.log(i);
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.display === "block") {
-          content.style.display = "none";
-        } else {
-          content.style.display = "block";
-        }
-      });
-    }
+      <!-- Generated Validation Report / Code Divs Section Starts -->
+      <a href=https://eval.ai/web/challenges/challenge-page/1640/overview>
+        <h4 class="small-title align-center">Ego4D Audio-Visual Diarization Challenge <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">Intel Labs</span>
+            <ul>
+              <li>Kyle Min, Intel Labs</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2210.07764>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/SRA2/SPELL>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1641/overview>
+        <h4 class="small-title align-center">Audio-Only Diarization Challenge <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">pyannote</span>
+            <ul>
+              <li>Hervé Bredin, IRIT, Université de Toulouse, CNRS</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://huggingface.co/pyannote/speaker-diarization>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://huggingface.co/pyannote/speaker-diarization>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Place</td>
+          <td>
+            <span class="winners-team-name">diart</span>
+            <ul>
+              <li>Juan M. Coria, Universite Paris-Saclay CNRS, LISN</li>
+              <li>Sahar Ghannay, Universite Paris-Saclay CNRS, LISN</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://github.com/juanmc2005/StreamingSpeakerDiarization/blob/ego4d/ego4d.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/juanmc2005/StreamingSpeakerDiarization/tree/ego4d>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>3rd Place</td>
+          <td>
+            <span class="winners-team-name">Red Panda@IMAGINE</span>
+            <ul>
+              <li>Yin-Dong Zheng, Nanjing University</li>
+              <li>Guo Chen, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Jiahao Wang, Nanjing University</li>
+              <li>Tong Lu, Nanjing University</li>
+              <li>Limin Wang, Nanjing University, Shanghai AI Laboratory</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.08708>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/Echo0125/Ego4d_Audio-only_Diarization_2022_3rd_Place_Solution>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1637/overview>
+        <h4 class="small-title align-center">AV Transcription Challenge <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">AVATAR-Google</span>
+            <ul>
+              <li>Paul Hongsuck Seo, Google Research</li>
+              <li>Arsha Nagrani, Google Research</li>
+              <li>Cordelia Schmid, Google Research</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/pdf/2211.09966.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/Echo0125/Ego4d_Audio-only_Diarization_2022_3rd_Place_Solution>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1843/overview>
+        <h4 class="small-title align-center">Visual Queries 2D Localization <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">Thereisnospoon</span>
+            <ul>
+              <li>Mengmeng Xu, KAUST</li>
+              <li>Juan-Manuel Perez-Rua, Facebook</li>
+              <li>Cheng-Yang Fu, Facebook</li>
+              <li>Yanghao Li, Facebook</li>
+              <li>Bernard Ghanem, KAUST</li>
+              <li>Tao Xiang, Facebook</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.10528>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/facebookresearch/vq2d_cvpr>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1646/overview>
+        <h4 class="small-title align-center">Visual Queries 3D Localization <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">IVUL</span>
+            <ul>
+              <li>Jinjie Mai, KAUST</li>
+              <li>Chen Zhao, KAUST</li>
+              <li>Abdullah Hamdi, KAUST</li>
+              <li>Silvio Giancola, KAUST</li>
+              <li>Bernard Ghanem, KAUST</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/pdf/2211.10284.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/Wayne-Mai/VQ3D_ECCVW2022>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Place</td>
+          <td>
+            <span class="winners-team-name">Thereisnospoon</span>
+            <ul>
+              <li>Mengmeng Xu, KAUST</li>
+              <li>Juan-Manuel Perez-Rua, Facebook</li>
+              <li>Cheng-Yang Fu, Facebook</li>
+              <li>Yanghao Li, Facebook</li>
+              <li>Bernard Ghanem, KAUST</li>
+              <li>Tao Xiang, Facebook</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.10528>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/facebookresearch/vq2d_cvpr>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1629/overview>
+        <h4 class="small-title align-center">Natural Language Queries <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">VideoIntern</span>
+            <ul>
+              <li>Guo Chen, Shanghai AI Laboratory, Nanjing University</li>
+              <li>Jiahao Wang, Nanjing University</li>
+              <li>Yi Liu, SIAT, Shanghai AI Laboratory</li>
+              <li>Yifei Huang, University of Tokyo</li>
+              <li>Jiashuo Yu, Shanghai AI Laboratory</li>
+              <li>Yi Wang, Shanghai AI Laboratory</li>
+              <li>Yali Wang, SIAT, Shanghai AI Laboratory</li>
+              <li>Tong Lu, Nanjing University</li>
+              <li>Limin Wang, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Yu Qiao, Shanghai AI Laboratory</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.09529>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/OpenGVLab/ego4d-eccv2022-solutions>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Place</td>
+          <td>
+            <span class="winners-team-name">University of Wisconsin-Madison</span>
+            <ul>
+              <li>Sicheng Mo, University of Wisconsin-Madison</li>
+              <li>Fangzhou Mu, University of Wisconsin-Madison</li>
+              <li>Yin Li, University of Wisconsin-Madison</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/pdf/2211.08704.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/OpenGVLab/ego4d-eccv2022-solutions>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>3rd Place</td>
+          <td>
+            <span class="winners-team-name">COarse-to-fiNE alignment framework (CONE)</span>
+            <ul>
+              <li>Zhijian Hou, City University of Hong Kong</li>
+              <li>Wanjun Zhong, Sun Yat-sen University</li>
+              <li>Lei Ji, Microsoft Research Asia</li>
+              <li>Difei Gao, National University of Singapore</li>
+              <li>Kun Yan, Beihang University</li>
+              <li>Wing-Kwong Chan, City University of Hong Kong</li>
+              <li>Chong-Wah Ngo, Singapore Management University</li>
+              <li>Zheng Shou, National University of Singapore</li>
+              <li>Nan Duan, Microsoft Research Asia</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/pdf/2211.08776.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/houzhijian/CONE.>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1626/overview>
+        <h4 class="small-title align-center">Moments Queries <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">VideoIntern</span>
+            <ul>
+              <li>Guo Chen, Shanghai AI Laboratory, Nanjing University</li>
+              <li>Jiahao Wang, Nanjing University</li>
+              <li>Yi Liu, SIAT, Shanghai AI Laboratory</li>
+              <li>Yifei Huang, University of Tokyo</li>
+              <li>Jiashuo Yu, Shanghai AI Laboratory</li>
+              <li>Yi Wang, Shanghai AI Laboratory</li>
+              <li>Yali Wang, SIAT, Shanghai AI Laboratory</li>
+              <li>Tong Lu, Nanjing University</li>
+              <li>Limin Wang, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Yu Qiao, Shanghai AI Laboratory</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.09529>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/OpenGVLab/ego4d-eccv2022-solutions>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Place</td>
+          <td>
+            <span class="winners-team-name">University of Wisconsin-Madison</span>
+            <ul>
+              <li>Fangzhou Mu, University of Wisconsin-Madison</li>
+              <li>Sicheng Mo, University of Wisconsin-Madison</li>
+              <li>Gillian Wang, University of Wisconsin-Madison</li>
+              <li>Yin Li, University of Wisconsin-Madison</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/pdf/2211.09074.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/happyharrycn/actionformer_release>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>3rd Place</td>
+          <td>
+            <span class="winners-team-name">ReLER@ZJU</span>
+            <ul>
+              <li>Jiayi Shao, ReLER Lab, CCAI, Zhejiang University</li>
+              <li>Xiaohan Wang, ReLER Lab, CCAI, Zhejiang University</li>
+              <li>Yi Yang, ReLER Lab, CCAI, Zhejiang University</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.09558>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/JonnyS1226/Ego4d_mq_3rd_solution>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1624/overview>
+        <h4 class="small-title align-center">Looking at Me <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">PKU-WICT-MIPL</span>
+            <ul>
+              <li>Xiyu Wei, Wangxuan Institute of Computer Technology, Peking University</li>
+              <li>Dejie Yang, Wangxuan Institute of Computer Technology, Peking University</li>
+              <li>Minghang Zheng, Wangxuan Institute of Computer Technology, Peking University</li>
+              <li>Qingchao Chen, National Institute of Health Data Science, Peking University</li>
+              <li>Yuxin Peng, Wangxuan Institute of Computer Technology, Peking University</li>
+              <li>Yang Liu, Wangxuan Institute of Computer Technology, Peking University; Beijing Institute for General
+                Artificial Intelligence</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.09558>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/lemon-prog123/Ego4D-ECCV-LAM>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Place</td>
+          <td>
+            <span class="winners-team-name">KeioEgo</span>
+            <ul>
+              <li>Haowen Hu, Graduate School of Science and Technology, Keio University</li>
+              <li>Ryo Hachiuma, Graduate School of Science and Technology, Keio University</li>
+              <li>Hideo Saito, Graduate School of Science and Technology, Keio University</li>
+              <li>Research code: https://github.com/Huhaowen0130/EgoFlow</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://drive.google.com/file/d/1N8OsZ77gUTcGJ1s8TEjKk8T_o54Fifv5/view?usp=sharing>Validation
+              Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/lemon-prog123/Ego4D-ECCV-LAM>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>3rd Place</td>
+          <td>
+            <span class="winners-team-name">NPT</span>
+            <ul>
+              <li>Yinan He, Beijing University of Posts and Telecommunications</li>
+              <li>Guo Chen, State Key Lab for Novel Software Technology, Nanjing University</li>
+              <li>Research code: https://github.com/yinanhe/ego4d-look-at-me</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://github.com/yinanhe/ego4d-look-at-me/blob/master/NPT_LAM.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/lemon-prog123/Ego4D-ECCV-LAM>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1625/overview>
+        <h4 class="small-title align-center">Talking to Me <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">University of Texas at Austin & Meta AI</span>
+            <ul>
+              <li>Zihui Xue, The University of Texas at Austin and Meta AI</li>
+              <li>Yale Song, Meta AI</li>
+              <li>Kristen Grauman, The University of Texas at Austin and Meta AI</li>
+            </ul>
+          </td>
+          <td>
+            Forthcoming
+          </td>
+          <td>
+            <a href=https://github.com/lemon-prog123/Ego4D-ECCV-LAM>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1598/overview>
+        <h4 class="small-title align-center">Long Term Action Anticipation <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">Autonomous Systems</span>
+            <ul>
+              <li>Esteve Valls Mascaro, Autonomous Systems, Technische Universitat Wien (TU Wien)</li>
+              <li>Hyemin Ahn, Ulsan National Institute of Science and Technology (UNIST)</li>
+              <li>Dongheui Lee, Autonomous Systems, Technische Universitat Wien (TU Wien) & Institute of Robotics and
+                Mechatronics, German Aerospace Center (DLR)</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2207.12080>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/lemon-prog123/Ego4D-ECCV-LAM>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1630/overview>
+        <h4 class="small-title align-center">Future Hand Prediction <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">VideoIntern</span>
+            <ul>
+              <li>Guo Chen, Shanghai AI Laboratory, Nanjing University</li>
+              <li>Yizhuo Li, The University of Hong Kong, Shanghai AI Laboratory</li>
+              <li>Kunchang Li, SIAT, Shanghai AI Laboratory</li>
+              <li>Yinan He, Shanghai AI Laboratory</li>
+              <li>Bingkun Huang, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Yifei Huang, University of Tokyo</li>
+              <li>Yi Wang, Shanghai AI Laboratory</li>
+              <li>Yali Wang, SIAT, Shanghai AI Laboratory</li>
+              <li>Tong Lu, Nanjing University</li>
+              <li>Limin Wang, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Yu Qiao, Shanghai AI Laboratory</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.09529>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/OpenGVLab/ego4d-eccv2022-solutions>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Place</td>
+          <td>
+            <span class="winners-team-name">KeioEgo</span>
+            <ul>
+              <li>Haowen Hu, Graduate School of Science and Technology, Keio University</li>
+              <li>Ryo Hachiuma, Graduate School of Science and Technology, Keio University</li>
+              <li>Hideo Saito, Graduate School of Science and Technology, Keio University</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.09529>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/masashi-hatano/ego4d-fhp-challenge-2022>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1623/overview>
+        <h4 class="small-title align-center">Short Term Object Interaction Anticipation <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">Video Intern</span>
+            <ul>
+              <li>Sen Xing, Shanghai AI Laboratory, Tsinghua University</li>
+              <li>Guo Chen, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Zhe Chen, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Junting Pan, Chinese University of Hong Kong, Shanghai AI Laboratory</li>
+              <li>Yifei Huang, University of Tokyo</li>
+              <li>Yi Wang, Shanghai AI Laboratory</li>
+              <li>Yali Wang, SIAT, Shanghai AI Laboratory</li>
+              <li>Limin Wang, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Yu Qiao, Shanghai AI Laboratory</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.09529>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/OpenGVLab/ego4d-eccv2022-solutions>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1632/overview>
+        <h4 class="small-title align-center">State Change Object Detection <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">VideoIntern</span>
+            <ul>
+              <li>Guo Chen, Shanghai AI Laboratory, Nanjing University</li>
+              <li>Zhe Chen, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Yi Wang, Shanghai AI Laboratory</li>
+              <li>Wenhai Wang, Shanghai AI Laboratory</li>
+              <li>Yali Wang, SIAT, Shanghai AI Laboratory</li>
+              <li>Limin Wang, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Yu Qiao, Shanghai AI Laboratory</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.09529>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/OpenGVLab/ego4d-eccv2022-solutions>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1627/overview>
+        <h4 class="small-title align-center">Object State Change Classification <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">Red Panda@IMAGINE</span>
+            <ul>
+              <li>Yin-Dong Zheng, Nanjing University</li>
+              <li>Guo Chen, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Jiahao Wang, Nanjing University</li>
+              <li>Tong Lu, Nanjing University</li>
+              <li>Limin Wang, Nanjing University, Shanghai AI Laboratory</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/pdf/2211.08728.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/OpenGVLab/ego4d-eccv2022-solutions>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Place</td>
+          <td>
+            <span class="winners-team-name">EgoMotion-COMPASS</span>
+            <ul>
+              <li>Jianchen Lei, Zhejiang University</li>
+              <li>Shuang Ma, Microsoft</li>
+              <li>Zhongjie Ba, Zhejiang University</li>
+              <li>Kui Ren, Zhejiang University</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/abs/2211.15286>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/jasonrayshd/egomotion>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>3rd Place</td>
+          <td>
+            <span class="winners-team-name">Pear Republic</span>
+            <ul>
+              <li>Shijie Wang, Brown University</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://drive.google.com/file/d/1L8mEDXlStom-APCEkwfrNM0Vd5aGIGUp/view?usp=sharing>Validation
+              Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/jasonrayshd/egomotion>Code</a>
+          </td>
+        </tr>
+      </table>
+      <a href=https://eval.ai/web/challenges/challenge-page/1622/overview>
+        <h4 class="small-title align-center">PNR Temporal Localization <i class="fas fa-link"></i></h4>
+      </a>
+      <table class="winners-table">
+        <tr>
+          <th>Place</th>
+          <th>Team</th>
+          <th>Validation Report</th>
+          <th>Code</th>
+        </tr>
+        <tr>
+          <td>1st Place</td>
+          <td>
+            <span class="winners-team-name">Red Panda@IMAGINE</span>
+            <ul>
+              <li>Yin-Dong Zheng, Nanjing University</li>
+              <li>Guo Chen, Nanjing University, Shanghai AI Laboratory</li>
+              <li>Jiahao Wang, Nanjing University</li>
+              <li>Tong Lu, Nanjing University</li>
+              <li>Limin Wang, Nanjing University, Shanghai AI Laboratory</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/pdf/2211.08728.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/jasonrayshd/egomotion>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>2nd Place</td>
+          <td>
+            <span class="winners-team-name">EgoMotion-COMPASS</span>
+            <ul>
+              <li>Jianchen Lei, Zhejiang University</li>
+              <li>Shuang Ma, Microsoft</li>
+              <li>Zhongjie Ba, Zhejiang University</li>
+              <li>Kui Ren, Zhejiang University</li>
+              <li>Valdition report: https://github.com/jasonrayshd/egomotion</li>
+            </ul>
+          </td>
+          <td>
+            <a href=https://arxiv.org/pdf/2211.08728.pdf>Validation Report</a>
+          </td>
+          <td>
+            <a href=https://github.com/jasonrayshd/egomotion>Code</a>
+          </td>
+        </tr>
+        <tr>
+          <td>3rd Place</td>
+          <td>
+            <span class="winners-team-name">University of Texas at Austin & Meta AI</span>
+            <ul>
+              <li>Zihui Xue, The University of Texas at Austin and Meta AI</li>
+              <li>Yale Song, Meta AI</li>
+              <li>Kristen Grauman, The University of Texas at Austin and Meta AI</li>
+            </ul>
+          </td>
+          <td>
+            Forthcoming
+          </td>
+          <td>
+            <a href=https://github.com/jasonrayshd/egomotion>Code</a>
+          </td>
+        </tr>
+      </table>
 
-    // Setup nav-item on click to toggle the hamburger
-    const navbar = document.getElementById("nav-bar");
-    const hamburger_button = navbar.querySelector("button.navbar-toggler");
-    const navlist = navbar.querySelectorAll("a.nav-link").forEach((el) => {
-      el.addEventListener("click", () => {
-        if (hamburger_button.ariaExpanded === "true") {
-          hamburger_button.click();
-        }
-      });
+      <!-- Generated Validation Report / Code Divs Section Ends -->
+    </div>
+  </section>
+
+</body>
+<script>
+
+  // Add code snippet for abstract toggle (https://www.w3schools.com/howto/howto_js_collapsible.asp)
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      console.log(i);
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
     });
-    const parallax = document.getElementById("parallax-image");
-    const tooltip = document.getElementById("parallax-tooltip");
-    const video = document.getElementById("parallax-video");
-    const [enable, disable] = map_hover(tooltip, video, parallax);
+  }
 
-    // Intersection observer to transition header and disable onmousemove and disable tooltip
-    let intersection_options = {
-      root: null, // viewport
-      rootMargin: "0px", // No margin
-      threshold: [0.4, 0.2],
-    };
+  // Setup nav-item on click to toggle the hamburger
+  const navbar = document.getElementById("nav-bar");
+  const hamburger_button = navbar.querySelector("button.navbar-toggler");
+  const navlist = navbar.querySelectorAll("a.nav-link").forEach((el) => {
+    el.addEventListener("click", () => {
+      if (hamburger_button.ariaExpanded === "true") {
+        hamburger_button.click();
+      }
+    });
+  });
+  const parallax = document.getElementById("parallax-image");
+  const tooltip = document.getElementById("parallax-tooltip");
+  const video = document.getElementById("parallax-video");
+  const [enable, disable] = map_hover(tooltip, video, parallax);
 
-    let previousThreshold = -1;
-    let observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((_entry) => {
-        if (!_entry.isIntersecting) {
-          // If it is not intersecting, disable it.
-          disable();
-          previousThreshold = -1;
-          return;
-        }
+  // Intersection observer to transition header and disable onmousemove and disable tooltip
+  let intersection_options = {
+    root: null, // viewport
+    rootMargin: "0px", // No margin
+    threshold: [0.4, 0.2],
+  };
 
-        // If intersecting, then it is either scrolling down or scrolling up.
-        if (previousThreshold === -1) {
-          previousThreshold = _entry.intersectionRatio;
-          return;
-        }
-
-        if (_entry.intersectionRatio > previousThreshold) {
-          // Going up
-          enable();
-        } else {
-          // Going down
-          disable();
-        }
+  let previousThreshold = -1;
+  let observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((_entry) => {
+      if (!_entry.isIntersecting) {
+        // If it is not intersecting, disable it.
+        disable();
         previousThreshold = -1;
-      });
-    }, intersection_options);
-    observer.observe(parallax);
+        return;
+      }
 
-    // Setup map hover
-    enable();
-  </script>
+      // If intersecting, then it is either scrolling down or scrolling up.
+      if (previousThreshold === -1) {
+        previousThreshold = _entry.intersectionRatio;
+        return;
+      }
+
+      if (_entry.intersectionRatio > previousThreshold) {
+        // Going up
+        enable();
+      } else {
+        // Going down
+        disable();
+      }
+      previousThreshold = -1;
+    });
+  }, intersection_options);
+  observer.observe(parallax);
+
+  // Setup map hover
+  enable();
+</script>
+
 </html>

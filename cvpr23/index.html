@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="A large-scale first-person video dataset, supporting research in multi-modal machine perception for daily life activity" />
+  <meta name="keywords" content="video dataset, machine perception, machine-learning, research, egocentric videos, ego4d" />
+
+  <title>Egocentric 4D Perception (EGO4D)</title>
+  <link rel="preconnect" href="https://use.fontawesome.com" />
+  <link rel="preconnect" href="https://maxcdn.bootstrapcdn.com" />
+  <link rel="preconnect" href="https://ajax.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="preconnect" href="https://assets.ego4d-data.org" />
+
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <link rel="preload" as="image" href="../assets/images/ego-4d-01.png" />
+  <link rel="preload" as="image" href="../assets/images/map.jpg"
+    media="screen and (max-width: 1024px), (max-height:511px)" />
+
+  <link rel="icon" href="../assets/images/ego4d-icon.ico" />
+
+  <!-- Latest font-awesome css for icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+
+  <!-- BS3 compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript for BS3 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script src="../assets/scripts/form-submission.js"></script>
+  <script src="../assets/scripts/ego_bounds.js"></script>
+  <script src="../assets/scripts/map-tooltip.js"></script>
+
+  <script type="text/javascript">
+    function openTabbedContent(element) {
+      var whereTo = $(element).attr("goto"),
+        tabs = $("#benchmarks li"),
+        links = tabs.find("a[href='#" + whereTo + "']");
+
+      links[0].click();
+    }
+    // Hide the address bar
+    // https://24ways.org/2011/raising-the-bar-on-mobile/
+    // https://github.com/scottjehl/Hide-Address-Bar
+    /*
+     * Normalized hide address bar for iOS & Android
+     * (c) Scott Jehl, scottjehl.com
+     * MIT License
+     */
+    (function (win) {
+      var doc = win.document;
+
+      // If there's a hash, or addEventListener is undefined, stop here
+      if (
+        !win.navigator.standalone &&
+        !location.hash &&
+        win.addEventListener
+      ) {
+        //scroll to 1
+        win.scrollTo(0, 1);
+        var scrollTop = 1,
+          getScrollTop = function () {
+            return (
+              win.pageYOffset ||
+              (doc.compatMode === "CSS1Compat" &&
+                doc.documentElement.scrollTop) ||
+              doc.body.scrollTop ||
+              0
+            );
+          },
+          //reset to 0 on bodyready, if needed
+          bodycheck = setInterval(function () {
+            if (doc.body) {
+              clearInterval(bodycheck);
+              scrollTop = getScrollTop();
+              win.scrollTo(0, scrollTop === 1 ? 0 : 1);
+            }
+          }, 15);
+
+        win.addEventListener(
+          "load",
+          function () {
+            setTimeout(function () {
+              //at load, if user hasn't scrolled more than 20 or so...
+              if (getScrollTop() < 20) {
+                //reset to hide addr bar at onload
+                win.scrollTo(0, scrollTop === 1 ? 0 : 1);
+              }
+            }, 0);
+          },
+          false
+        );
+      }
+    })(this);
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="notice">Looking for the <a href="../eccv22">ECCV 2022 Workshop Page</a>?</div>
+    <nav id="nav-bar" class="navbar nav-dropdown navbar-expand-lg">
+      <div id="nav-links" class="container-fluid">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-menu"
+          aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+
+        <div id="nav-logo">
+          <a href="#">
+            <img id="logo" src="../assets/images/ego-4d-01.png" alt="Logo" />
+          </a>
+        </div>
+        <div id="nav-menu" class="collapse">
+          <ul id="nav-menu-list" data-app-modern-menu="true">
+            <li class="nav-item">
+              <a href="#challenges" class="nav-link">Challenges</a>
+            </li>
+            <li class="nav-item">
+              <a href="#cfp" class="nav-link">Call for Abstracts</a>
+            </li>
+            <li class="nav-item">
+              <a href="#impdates" class="nav-link">Important Dates</a>
+            </li>
+            <li class="nav-item">
+              <a href="#invited" class="nav-link">Invited Speakers</a>
+            </li>
+            <li class="nav-item">
+              <a href="#program" class="nav-link">Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a href="#organisers" class="nav-link">Organisers</a>
+            </li>
+          </ul>
+          <div id="social-links">
+            <a href="https://github.com/EGO4D" target="_blank" rel="noopener noreferrer" class="icon-wrap">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://drive.google.com/file/d/1oknfQIH9w1rXy6I1j5eUE6Cqh96UwZ4L/view?usp=sharing" target="_blank"
+              rel="noopener noreferrer" class="icon-wrap">
+              <i class="fab fa-youtube"></i>
+            </a>
+
+            <a href="mailto:info@ego4d-data.org" target="_blank" rel="noopener noreferrer" class="icon-wrap">
+              <i class="fab fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+        <div id="discover"></div>
+      </div>
+    </nav>
+  </header>
+
+  <section id="intro">
+    <div class="container">
+      <div class="row">
+        <div id="tab-header" class="align-center">
+          <h3 class="title no-margin">3rd International Ego4D Workshop @ CVPR 2023</h3>
+          <h5 class="title no-maragin">
+            <font size=5>Held in conjunction with <a href="https://eyewear-computing.org/EPIC_CVPR23/">11th EPIC
+                Workshop</a></font>
+          </h5>
+          <p class="sub-title slide-text">For details about the Ego4D project and data, <a
+              href="https://ego4d-data.org/">please refer to the dataset's webpage</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="challenges">
+    <div class="container">
+      <div class="row card-row">
+        <div class="col-xs-12 col-sm-6 col-lg-3 title">
+          <h2 class="title">Challenges</h2>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#episodic-memory" class="block" target="_blank"
+            rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/episodic.png" alt="Placeholder image 5" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">Episodic Memory</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#hands-and-objects" class="block" target="_blank"
+            rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/h+o.png" alt="Placeholder image 3" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">Hand-Object Interactions</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#audio-visual-diarization--social" class="block"
+            target="_blank" rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/a-vD.png" alt="Placeholder image 6" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">AV Diarization</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block empty-block"></div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#audio-visual-diarization--social" class="block"
+            target="_blank" rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/social.png" alt="Placeholder image 7" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">Social</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3 card-block">
+          <a href="https://ego4d-data.org/docs/challenge/#forecasting" class="block" target="_blank"
+            rel="noopener noreferrer">
+            <div class="card-content">
+              <div class="card-image">
+                <img src="../assets/images/forecasting.png" alt="Placeholder image 4" />
+              </div>
+              <div class="card-info">
+                <h3 class="card-title">Forecasting</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cfp">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">Call for Extended Abstracts</h3>
+        </div>
+      </div>
+      <p class="justified">
+        You are invited to submit extended abstracts to the third
+        edition of the International Workshop in Ego4D which will be held
+        alongside <a href="https://cvpr2023.thecvf.com/">CVPR 2023</a> in Vancouver.
+        </p>
+        <p class=" justified">
+          These abstracts represent existing or ongoing work and will not be
+          published as part of any proceedings. We welcome all works that focus
+          within the Egocentric Domain, it is not necessary to use the Ego4D
+          dataset within your work. We expect a submission may contain one or
+          more of the following topics (this is a non-exhaustive list):
+      </p>
+      <ul class="cfp">
+        <li>Video Understanding for Egocentric Videos</li>
+        <li>Egocentric and Exocentric domain adaptation/transfer</li>
+        <li>Egocentric video Summarization</li>
+        <li>Egocentric Social Interaction and human behavior understanding</li>
+        <li>Computational eye tracking and gaze estimation from head mounted devices</li>
+        <li>Interactive Augmented and Virtual Reality for Egocentric Perception</li>
+        <li>Augmented Human performance for egocentric</li>
+        <li>Privacy and ethical concerns with wearable sensors and egocentric vision</li>
+        <li>Egocentric vision for social good.</li>
+      </ul>
+      <h3 class="small-title">Format</h3>
+      <p class="justified">
+        The length of the extended abstracts is 2-4 pages, including figures
+        and tables, but not references. We invite submissions of ongoing or
+        already published work, as well as reports on demonstrations and
+        prototypes. The 3<sup>rd</sup> international Ego4D workshop gives opportunities
+        for authors to present their work to the egocentric community to
+        provoke discussion and feedback. Accepted work will be presented as
+        either an oral presentation (either virtual or in-person) or as a
+        poster presentation. The review will be single-blind, so there is no
+        need to anonymize your work, but otherwise will follow the format of
+        the CVPR submissions, information can be found
+        <a href="https://cvpr2023.thecvf.com/Conferences/2023/AuthorGuidelines">here</a>.
+        Accepted abstracts will not be published as part of a proceedings, so
+        can be uploaded to ArXiv etc. and the links will be provided on the
+        workshop’s webpage.
+
+        The submission will be managed with the Ego4D&EPIC@CVPR2023 CMT website.
+      </p>
+    </div>
+  </section>
+
+
+  <section id="impdates">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">Important Dates</h3>
+        </div>
+      </div>
+      <table class="dates-table">
+        <tr>
+            <td class='small-title'>Challenge Begin</td>
+            <td>February 2023</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Challenge Deadline</td>
+          <td>30 May 2023</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Challenge Report Deadline</td>
+          <td>5 June 2023</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Extended Abstract Deadline</td>
+          <td>10 May 2023</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Notification to Authors</td>
+          <td>29 May 2023</td>
+        </tr>
+        <tr>
+          <td class='small-title'>Workshop Date</td>
+          <td>19 June 2023</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="invited">
+    <div class="align-center">
+      <h3 class="title large-text">Invited Speakers</h3>
+      <p class="slide-text">
+        We have several invited talks scheduled for the workshop
+      </p>
+    </div>
+    <div class="container">
+      <div class="row align-items-center md-flip-order">
+        <div class="col-xs-12">
+          <div class="consortium_logos">
+            <div class="image">
+              <img src="../assets/images/vedaldi.jpg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.robots.ox.ac.uk/~vedaldi/">Andrea Vedaldi</a>
+              <p class="slide-text">University of Oxford, UK</p>
+              <!-- <button type="button" class="btn collapsible">Abstract</button>
+              <div class="content">
+                <p>Coming soon</p>
+              </div> -->
+            </div>
+            <div class="image">
+              <img src="../assets/images/hyunsoo.jpg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www-users.cse.umn.edu/~hspark/">Hyun Soo Park</a>
+              <p class="slide-text">University of Minnesota, US</p>
+              <!-- <button type="button" class="btn collapsible">Abstract</button>
+              <div class="content">
+                <p>Coming soon</p>
+              </div> -->
+            </div>
+            <div class="image">
+              <img src="../assets/images/david.jpg" alt="" title="" /><br /><a class="slide-text"
+                href="https://web.eecs.umich.edu/~fouhey/">David Fouhey</a>
+              <p class="slide-text">University of Michigan, US</p>
+              <!-- <button type="button" class="btn collapsible">Abstract</button>
+              <div class="content">
+                <p>Coming soon</p>
+              </div> -->
+            </div>
+            <div class="image">
+              <img src="../assets/images/Arsha.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://a-nagrani.github.io/">Arsha Nagrani</a>
+              <p class="slide-text">Google AI Research</p>
+              <!-- <button type="button" class="btn collapsible">Abstract</button>
+              <div class="content">
+                <p>Coming soon</p>
+              </div> -->
+            </div>
+            <div class="image">
+              <img src="../assets/images/suraj.jpg" alt="" title="" /><br /><a class="slide-text"
+                href="https://cs.stanford.edu/~surajn/">Suraj Nair</a>
+              <p class="slide-text">Stanford University, US</p>
+              <!-- <button type="button" class="btn collapsible">Abstract</button>
+              <div class="content">
+                <p>Coming soon</p>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section id="program">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">Schedule</h3>
+        </div>
+      </div>
+      <p class="justified">
+        Schedule coming soon!
+      </p>
+    </div>
+  </section>
+
+  <section id="qa">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 align-center">
+          <h3 class="title large-text">FAQs</h3>
+        </div>
+      </div>
+
+      <div class="timelines-container">
+        <div class="row timeline-element divider-line">
+          <div class="
+                col-lg-6
+                col-md-6
+                col-xs-11
+                col-xs-offset-1
+                col-md-offset-0
+                col-lg-offset-0
+              ">
+            <div class="timeline-text-content">
+              <h4 class="small-title">
+                Does the workshop have any proceedings?
+              </h4>
+              <p>
+                No, we will only accept extended abstracts.
+              </p>
+            </div>
+          </div>
+          <span class="timeline-point"></span>
+          <div class="timeline-data-panel col-lg-6 col-md-6"></div>
+        </div>
+
+        <div class="row timeline-element divider-line">
+          <div class="timeline-data-panel col-lg-6 col-md-6"></div>
+          <span class="timeline-point"></span>
+          <div class="
+                col-lg-6
+                col-md-6
+                col-xs-11
+                col-xs-offset-1
+                col-md-offset-0
+                col-lg-offset-0
+              ">
+            <div class="timeline-text-content">
+              <h4 class="small-title">When will the challenges open/close?</h4>
+              <p>
+                The Ego4D challenges will open in February 2023.</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="organisers">
+    <div class="title-block align-center">
+      <h3 class="title large-text">Workshop Organisers</h3>
+    </div>
+    <div class="container">
+      <div class="row align-items-center md-flip-order">
+        <div class="col-xs-12">
+          <div class="consortium_logos">
+            <div class="image">
+              <img src="../assets/images/rohit.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://rohitgirdhar.github.io/">Rohit Girdhar</a>
+              <p class="slide-text">Meta AI</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Andrew.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.linkedin.com/in/andrew-westbury-2757a31b">Andrew Westbury</a>
+              <p class="slide-text">Meta AI</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/michael.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://mwray.github.io/">Michael Wray</a>
+              <p class="slide-text">University of Bristol</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Antonino.png" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.antoninofurnari.it/">Antonino Furnari</a>
+              <p class="slide-text">University of Catania</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Siddhant.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://sid2697.github.io/">Siddhant Bansal</a>
+              <p class="slide-text">IIIT Hyderabad</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Devansh.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.linkedin.com/in/devanshkukreja/">Devansh Kukreja</a>
+              <p class="slide-text">Meta AI</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/kristen.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.cs.utexas.edu/users/grauman/">Kristen Grauman</a>
+              <p class="slide-text">UT Austin</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Jitendra.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://people.eecs.berkeley.edu/~malik/">Jitendra Malik</a>
+              <p class="slide-text">UC Berkeley</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Dima.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="http://people.cs.bris.ac.uk/~damen/">Dima Damen</a>
+              <p class="slide-text">University of Bristol</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Giovanni.png" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.dmi.unict.it/farinella/">Giovanni Maria Farinella</a>
+              <p class="slide-text">University of Catania</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/james.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://rehg.org/">James Rehg</a>
+              <p class="slide-text">Georgia Institute of Technology</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/David.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://luddy.indiana.edu/contact/profile/?David_Crandall">David Crandall</a>
+              <p class="slide-text">Indiana University</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Hyun.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www-users.cse.umn.edu/~hspark/">Hyun Soo Park</a>
+              <p class="slide-text">University of Minnesota</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Mike.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="http://www.columbia.edu/~zs2262/index.html">Mike Zheng Shou</a>
+              <p class="slide-text">NUS</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Jawahar.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://faculty.iiit.ac.in/~jawahar/">C.V. Jawahar</a>
+              <p class="slide-text">IIIT Hyderabad</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Kris.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.cs.cmu.edu/~kkitani/">Kris Kitani</a>
+              <p class="slide-text">CMU</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Bernard.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.kaust.edu.sa/en/study/faculty/bernard-ghanem">Bernard Ghanem</a>
+              <p class="slide-text">KAUST</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Jianbo.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://www.cis.upenn.edu/~jshi/">Jianbo Shi</a>
+              <p class="slide-text">University of Pennsylvania</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Yoichi.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://sites.google.com/ut-vision.org/ysato/">Yoichi Sato</a>
+              <p class="slide-text">University of Tokyo</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Pablo.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://scholar.google.com/citations?user=k0nZO90AAAAJ&hl=en">Pablo Arbelaez</a>
+              <p class="slide-text">Universidad de los Andes</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Aude.png" alt="" title="" /><br /><a class="slide-text"
+                href="http://olivalab.mit.edu/audeoliva.html">Aude Oliva</a>
+              <p class="slide-text">MIT</p>
+            </div>
+            <div class="image">
+              <img src="../assets/images/Antonio.jpeg" alt="" title="" /><br /><a class="slide-text"
+                href="https://groups.csail.mit.edu/vision/torralbalab/">Antonio Torralba</a>
+              <p class="slide-text">MIT</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+<script>
+
+  // Add code snippet for abstract toggle (https://www.w3schools.com/howto/howto_js_collapsible.asp)
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      console.log(i);
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+
+  // Setup nav-item on click to toggle the hamburger
+  const navbar = document.getElementById("nav-bar");
+  const hamburger_button = navbar.querySelector("button.navbar-toggler");
+  const navlist = navbar.querySelectorAll("a.nav-link").forEach((el) => {
+    el.addEventListener("click", () => {
+      if (hamburger_button.ariaExpanded === "true") {
+        hamburger_button.click();
+      }
+    });
+  });
+  const parallax = document.getElementById("parallax-image");
+  const tooltip = document.getElementById("parallax-tooltip");
+  const video = document.getElementById("parallax-video");
+  const [enable, disable] = map_hover(tooltip, video, parallax);
+
+  // Intersection observer to transition header and disable onmousemove and disable tooltip
+  let intersection_options = {
+    root: null, // viewport
+    rootMargin: "0px", // No margin
+    threshold: [0.4, 0.2],
+  };
+
+  let previousThreshold = -1;
+  let observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((_entry) => {
+      if (!_entry.isIntersecting) {
+        // If it is not intersecting, disable it.
+        disable();
+        previousThreshold = -1;
+        return;
+      }
+
+      // If intersecting, then it is either scrolling down or scrolling up.
+      if (previousThreshold === -1) {
+        previousThreshold = _entry.intersectionRatio;
+        return;
+      }
+
+      if (_entry.intersectionRatio > previousThreshold) {
+        // Going up
+        enable();
+      } else {
+        // Going down
+        disable();
+      }
+      previousThreshold = -1;
+    });
+  }, intersection_options);
+  observer.observe(parallax);
+
+  // Setup map hover
+  enable();
+</script>
+
+</html>

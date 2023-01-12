@@ -27,9 +27,9 @@ Code: https://github.com/juanmc2005/StreamingSpeakerDiarization/tree/ego4d
 
 3rd Place: Red Panda@IMAGINE
 Team: 
-Yin-Dong Zheng, Nanjing University
-Guo Chen, Nanjing University, Shanghai AI Laboratory
 Jiahao Wang, Nanjing University
+Guo Chen, Nanjing University, Shanghai AI Laboratory
+Yin-Dong Zheng, Nanjing University
 Tong Lu, Nanjing University
 Limin Wang, Nanjing University, Shanghai AI Laboratory
 Validation report: https://arxiv.org/abs/2211.08708
@@ -187,6 +187,7 @@ Challenge: Talking to Me
 Team: 
 Zihui Xue, The University of Texas at Austin and Meta AI 
 Yale Song, Meta AI 
+Lorenzo Torresani, Meta AI 
 Kristen Grauman, The University of Texas at Austin and Meta AI 
 Validation report: Forthcoming 
 
@@ -218,7 +219,14 @@ Yu Qiao, Shanghai AI Laboratory
 Validation report: https://arxiv.org/abs/2211.09529
 Code: https://github.com/OpenGVLab/ego4d-eccv2022-solutions
 
-2nd Place: KeioEgo
+2nd Place: HVRL
+Team: 
+Masashi Hatano, Graduate School of Science and Technology, Keio University
+Ryo Hachiuma, Graduate School of Science and Technology, Keio University
+Hideo Saito, Graduate School of Science and Technology, Keio University
+Code: Forthcoming
+
+3rd Place: KeioEgo
 Team: 
 Haowen Hu, Graduate School of Science and Technology, Keio University
 Ryo Hachiuma, Graduate School of Science and Technology, Keio University 
@@ -305,8 +313,9 @@ Valdition report: https://github.com/jasonrayshd/egomotion
 Team: 
 Zihui Xue, The University of Texas at Austin and Meta AI 
 Yale Song, Meta AI 
+Lorenzo Torresani, Meta AI
 Kristen Grauman, The University of Texas at Austin and Meta AI 
-Validation report: Forthcoming 
+Validation report: Forthcoming
 """
 
 output_html = ""

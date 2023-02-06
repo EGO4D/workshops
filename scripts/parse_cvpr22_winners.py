@@ -164,6 +164,7 @@ Minghang Zheng, Wangxuan Institute of Computer Technology, Peking University
 Qingchao Chen, National Institute of Health Data Science, Peking University
 Yuxin Peng, Wangxuan Institute of Computer Technology, Peking University 
 Yang Liu, Wangxuan Institute of Computer Technology, Peking University; Beijing Institute for General Artificial Intelligence
+Validation report: Forthcoming
 Code: https://github.com/lemon-prog123/Ego4D-ECCV-LAM
 
 2nd Place: KeioEgo
@@ -189,8 +190,7 @@ Zihui Xue, The University of Texas at Austin and Meta AI
 Yale Song, Meta AI 
 Lorenzo Torresani, Meta AI 
 Kristen Grauman, The University of Texas at Austin and Meta AI 
-Validation report: Forthcoming 
-
+Validation report: https://arxiv.org/abs/2302.01891
 
 Challenge: Long Term Action Anticipation
 
@@ -224,6 +224,7 @@ Team:
 Masashi Hatano, Graduate School of Science and Technology, Keio University
 Ryo Hachiuma, Graduate School of Science and Technology, Keio University
 Hideo Saito, Graduate School of Science and Technology, Keio University
+Validation report: Forthcoming
 Code: Forthcoming
 
 3rd Place: KeioEgo
@@ -231,6 +232,7 @@ Team:
 Haowen Hu, Graduate School of Science and Technology, Keio University
 Ryo Hachiuma, Graduate School of Science and Technology, Keio University 
 Hideo Saito, Graduate School of Science and Technology, Keio University
+Validation report: Forthcoming
 Code: https://github.com/masashi-hatano/ego4d-fhp-challenge-2022
 
 Challenge:  Short Term Object Interaction Anticipation 
@@ -273,6 +275,7 @@ Jiahao Wang, Nanjing University
 Tong Lu, Nanjing University
 Limin Wang, Nanjing University, Shanghai AI Laboratory
 Validation report: https://arxiv.org/pdf/2211.08728.pdf
+Code: Forthcoming
 
 2nd Place: EgoMotion-COMPASS 
 Team: 
@@ -288,6 +291,7 @@ Code: https://github.com/jasonrayshd/egomotion
 Team: 
 Shijie Wang, Brown University  
 Validation report: https://drive.google.com/file/d/1L8mEDXlStom-APCEkwfrNM0Vd5aGIGUp/view?usp=sharing
+Code: Forthcoming
 
 
 Challenge: PNR Temporal Localization
@@ -300,6 +304,7 @@ Jiahao Wang, Nanjing University
 Tong Lu, Nanjing University
 Limin Wang, Nanjing University, Shanghai AI Laboratory
 Validation report: https://arxiv.org/pdf/2211.08728.pdf
+Code: Forthcoming
 
 2nd Place: EgoMotion-COMPASS
 Team: 
@@ -307,7 +312,8 @@ Jianchen Lei, Zhejiang University
 Shuang Ma, Microsoft
 Zhongjie Ba, Zhejiang University 
 Kui Ren, Zhejiang University 
-Valdition report: https://github.com/jasonrayshd/egomotion 
+Validation report: https://github.com/jasonrayshd/egomotion 
+Code: https://github.com/jasonrayshd/egomotion
 
 3rd Place: University of Texas at Austin & Meta AI 
 Team: 
@@ -315,7 +321,8 @@ Zihui Xue, The University of Texas at Austin and Meta AI
 Yale Song, Meta AI 
 Lorenzo Torresani, Meta AI
 Kristen Grauman, The University of Texas at Austin and Meta AI 
-Validation report: Forthcoming
+Validation report: https://arxiv.org/abs/2302.01891
+Code: Forthcoming
 """
 
 output_html = ""
@@ -356,12 +363,12 @@ def gen_html(context):
         </td>
         <td>
         {
-            f"<a href={context['validation_report']}>Validation Report</a>" if "Forthcoming" not in context['validation_report'] else "Forthcoming"
+            f"<a href={context['validation_report']}>Validation Report</a>" if ('validation_report' in context and "Forthcoming" not in context['validation_report']) else "Forthcoming"
         }
         </td>
         <td>
         {
-            f"<a href={context['code']}>Code</a>" if "Forthcoming" not in context['code'] else "Forthcoming"
+            f"<a href={context['code']}>Code</a>" if ('code' in context and "Forthcoming" not in context['code']) else "Forthcoming"
         }
         </td>
     </tr>
@@ -377,6 +384,7 @@ for line in raw.split("\n"):
     if line.startswith("Challenge"):
         if context.get("challenge") is not None:
             output_html += gen_html(context)
+            context = {}
             output_html += "</table>"
         context["challenge"] = line.split(":")[1].strip()
         output_html += f"""
@@ -405,6 +413,7 @@ for line in raw.split("\n"):
     elif line.lower().startswith("1st place"):
         if last_context != "challenge":
             output_html += gen_html(context)
+            context = {}
         context["position"] = "1st Place"
         context["team_name"] = line.split(":")[1].strip()
         last_context = "position"
@@ -412,6 +421,7 @@ for line in raw.split("\n"):
     elif line.lower().startswith("2nd place"):
         if last_context != "challenge":
             output_html += gen_html(context)
+            context = {}
         context["position"] = "2nd Place"
         context["team_name"] = line.split(":")[1].strip()
         last_context = "position"
@@ -419,6 +429,7 @@ for line in raw.split("\n"):
     elif line.lower().startswith("3rd place"):
         if last_context != "challenge":
             output_html += gen_html(context)
+            context = {}
         context["position"] = "3rd Place"
         context["team_name"] = line.split(":")[1].strip()
         last_context = "position"
